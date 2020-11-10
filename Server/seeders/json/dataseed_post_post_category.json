@@ -1,0 +1,14 @@
+[
+    {
+        "PostId": 1,
+        "PostCategoryId": 1
+    },
+    {
+        "PostId": 2,
+        "PostCategoryId": 2
+    },
+    {
+        "PostId": 3,
+        "PostCategoryId": 2
+    }
+]

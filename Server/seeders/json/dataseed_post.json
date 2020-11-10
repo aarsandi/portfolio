@@ -1,0 +1,29 @@
+[
+    {
+        "title": "nothing1",
+        "detail": "nothing",
+        "content": "nothing",
+        "image": null,
+        "images": null,
+        "UserId": 1,
+        "featured": true
+    },
+    {
+        "title": "nothing2",
+        "detail": "nothing",
+        "content": "nothing",
+        "image": null,
+        "images": null,
+        "UserId": 1,
+        "featured": true
+    },
+    {
+        "title": "nothing3",
+        "detail": "nothing",
+        "content": "nothing",
+        "image": null,
+        "images": null,
+        "UserId": 2,
+        "featured": false
+    }
+]
