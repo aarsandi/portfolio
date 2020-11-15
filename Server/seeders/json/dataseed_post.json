@@ -6,7 +6,7 @@
         "image": null,
         "images": null,
         "UserId": 1,
-        "featured": true
+        "featured": 0
     },
     {
         "title": "nothing2",
@@ -15,7 +15,7 @@
         "image": null,
         "images": null,
         "UserId": 1,
-        "featured": true
+        "featured": 0
     },
     {
         "title": "nothing3",
@@ -24,6 +24,6 @@
         "image": null,
         "images": null,
         "UserId": 2,
-        "featured": false
+        "featured": 0
     }
 ]

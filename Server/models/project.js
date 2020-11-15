@@ -42,8 +42,8 @@ module.exports = (sequelize, DataTypes) => {
     images: DataTypes.TEXT,
     gitlink: DataTypes.STRING,
     demolink: DataTypes.STRING,
-    featured: DataTypes.BOOLEAN,
-    isdone: DataTypes.BOOLEAN,
+    featured: DataTypes.INTEGER,
+    isdone: DataTypes.INTEGER,
     UserId: DataTypes.INTEGER
   }, {
     sequelize,

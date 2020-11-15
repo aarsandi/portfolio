@@ -1,4 +1,4 @@
-const { User } = require('../../models/index')
+const { User, Post, PostCategory, Project, ProjectCategory } = require('../../models/index')
 const { comparePassword } = require('../../helpers/bcrypt')
 const { signToken } = require('../../helpers/jwt')
 
@@ -42,12 +42,26 @@ class AdminController {
     }
 
     // Home
-    static async home(req, res) {
+    static async home(req, res, next) {
         try {
-            const users = await User.findAll()
-            res.status(200).json(users)
+            const user = await User.findByPk(req.userLogin.id, {attributes: { exclude: ['password'] }})
+            const posts = await Post.findAll({
+                order: [['updatedAt', 'DESC']],
+                include: [
+                    { model: PostCategory, as: 'PostCategories', through: { attributes: [] } },
+                    { model: User, attributes: ['name', 'email', 'avatar'] }
+                ]
+            })
+            const projects = await Project.findAll({
+                order: [['updatedAt', 'DESC']],
+                include: [
+                    { model: ProjectCategory, as: 'ProjectCategories', through: { attributes: [] } },
+                    { model: User, attributes: ['name', 'email', 'avatar'] }
+                ]
+            })
+            res.status(200).json({ user: user, posts: posts, projects: projects })
         } catch (err) {
-            res.status(500).json({ message: "server error" })
+            next(err)
         }
     }
 }

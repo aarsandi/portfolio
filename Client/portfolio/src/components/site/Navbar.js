@@ -7,6 +7,7 @@ export default function Navbar() {
         document.getElementById('menu-bar').classList.toggle('change');
         document.getElementById('nav').classList.toggle('change-btn');
     }
+    
     return (
         <>
             <div id="menu" className="menu">

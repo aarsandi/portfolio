@@ -95,6 +95,11 @@ h1, h2, h3, h4, h5, h6 {
     }
 }
 
+/* Rich text box plugin */
+.ck-editor__editable_inline {
+    min-height: 300px;
+}
+
 /* Info looking for developer */
 
 .heading {
@@ -107,6 +112,11 @@ h1, h2, h3, h4, h5, h6 {
     .heading {
         font-size: 40px;
     }
+}
+
+.modal-container {
+    width: 90vw;    /* Occupy the 90% of the screen width */
+    max-width: 90vw;
 }
 
 /* End of Info looking for developer */

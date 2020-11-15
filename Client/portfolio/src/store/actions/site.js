@@ -54,7 +54,7 @@ export function fetchAllProjects() {
             })
             dispatch(siteAllProjects(response.data))
         } catch (err) {
-            if (err.response.data) {
+            if (err.response) {
                 dispatch(setError({ error: err.response.data.error }))
             } else {
                 dispatch(setError({ error: 'unhandle error' }))
@@ -73,7 +73,7 @@ export function fetchOneProject(id) {
             })
             dispatch(siteOneProject(response.data))
         } catch (err) {
-            if (err.response.data) {
+            if (err.response) {
                 dispatch(setError({ error: err.response.data.error }))
             } else {
                 dispatch(setError({ error: 'unhandle error' }))

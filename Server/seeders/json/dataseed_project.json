@@ -7,8 +7,8 @@
         "images": null,
         "gitlink": null,
         "demolink": null,
-        "featured": false,
-        "isdone": false,
+        "featured": 0,
+        "isdone": 0,
         "UserId": 1
     },
     {
@@ -19,8 +19,8 @@
         "images": null,
         "gitlink": null,
         "demolink": null,
-        "featured": false,
-        "isdone": false,
+        "featured": 0,
+        "isdone": 0,
         "UserId": 2
     },
     {
@@ -31,8 +31,8 @@
         "images": null,
         "gitlink": null,
         "demolink": null,
-        "featured": false,
-        "isdone": false,
+        "featured": 0,
+        "isdone": 0,
         "UserId": 2
     }
 ]

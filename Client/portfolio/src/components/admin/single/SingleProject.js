@@ -21,7 +21,7 @@ export default function SingleProject() {
         return (
         <>
             <h1>Well, this is awkward</h1>
-            <Link to="/" className="btn btn-primary">Home</Link>
+            <Link to="/admin" className="btn btn-primary">Home</Link>
         </>
         )
     } else {
@@ -31,12 +31,13 @@ export default function SingleProject() {
                 <h1 className="text-center">id: {project.id}</h1>
                 <h1 className="text-center">title: {project.title}</h1>
                 <h1 className="text-center">detail: {project.detail}</h1>
-                <h1 className="text-center">article: {project.article}</h1>
+                <h1 className="text-center">article: {project.content}</h1>
                 <h1 className="text-center">image: {project.image}</h1>
                 <h1 className="text-center">images: {project.images}</h1>
                 <h1 className="text-center">git link: {project.gitlink}</h1>
                 <h1 className="text-center">demo link: {project.demolink}</h1>
                 <h1 className="text-center">featured: {project.featured ? 'true' : 'false'}</h1>
+                <h1 className="text-center">featured: {project.isdone ? 'true' : 'false'}</h1>
                 <h1 className="text-center">created at: {project.createdAt}</h1>
                 <h1 className="text-center">updated at: {project.updatedAt}</h1>
             </>

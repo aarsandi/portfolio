@@ -59,7 +59,7 @@ export default function ProjectSingle() {
                                     <div className="project-detail">
                                         <p className="tag"><span>Illustration</span>, <span>Logo</span></p>
                                         <h2>{project.detail}</h2>
-                                        <p>{project.content}</p>
+                                        <div dangerouslySetInnerHTML={{__html: project.content}} />
                                         <p><a href="https://github.com/aarsandi" className="btn btn-primary">View Live Preview</a></p>
                                     </div>
                                 </div>

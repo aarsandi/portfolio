@@ -1,54 +1,163 @@
 import axios from '../../api/axios'
 
+// Loading and Error
+export function setLoading() {
+    return { type: 'SET_LOADING'}
+}
+export function setError(error) {
+    return { type: 'SET_ERROR', payload: error }
+}
+export function setAllDataAdmin(data) {
+    return { type: 'SETALLDATAADMIN', payload: data }
+}
+export function setLogout() {
+    return { type: 'LOGOUT' }
+}
+
+// Skill
+export function setAllSkills(skills) {
+    return { type: 'SETALLSKILLS', payload: skills }
+}
+export function setOneSkill(skill) {
+    return { type: 'SETONESKILL', payload: skill }
+}
+
 // POST
 export function setAllPosts(posts) {
     return { type: 'SETALLPOSTS', payload: posts }
 }
-
 export function setOnePost(post) {
     return { type: 'SETONEPOST', payload: post }
 }
-
-export function saveAddPost(post) {
-    return { type: 'ADDPOST', payload: post }
-}
-
-export function saveEditPost(post) {
-    return { type: 'EDITPOST', payload: post }
-}
-
 export function saveDeletePost(id) {
     return { type: 'DELETEPOST', payload: id }
+}
+
+// POST Category
+export function setAllPostCategories(postcategory) {
+    return { type: 'SETALLPOSTCATEGORY', payload: postcategory }
+}
+export function setOnePostCategory(postcategory) {
+    return { type: 'SETONEPOSTCATEGORY', payload: postcategory }
+}
+export function saveAddPostCategory(postcategory) {
+    return { type: 'ADDPOSTCATEGORY', payload: postcategory }
+}
+export function saveDeletePostCategory(id) {
+    return { type: 'DELETEPOSTCATEGORY', payload: id }
+}
+
+// Project Category
+export function setAllProjectCategories(projectcategory) {
+    return { type: 'SETALLPROJECTCATEGORY', payload: projectcategory }
+}
+export function setOneProjectCategory(projectcategory) {
+    return { type: 'SETONEPROJECTCATEGORY', payload: projectcategory }
+}
+export function saveAddProjectCategory(projectcategory) {
+    return { type: 'ADDPROJECTCATEGORY', payload: projectcategory }
+}
+export function saveDeleteProjectCategory(id) {
+    return { type: 'DELETEPROJECTCATEGORY', payload: id }
 }
 
 // PROJECT
 export function setAllProjects(projects) {
     return { type: 'SETALLPROJECTS', payload: projects }
 }
-
 export function setOneProject(project) {
     return { type: 'SETONEPROJECT', payload: project }
 }
-
-export function saveAddProject(project) {
-    return { type: 'ADDPROJECT', payload: project }
-}
-
-export function saveEditProject(project) {
-    return { type: 'EDITPROJECT', payload: project }
-}
-
 export function saveDeleteProject(id) {
     return { type: 'DELETEPROJECT', payload: id }
 }
 
-// Loading and Error
-export function setLoading() {
-    return { type: 'SET_LOADING'}
+// Admin Action
+export function fetchDataHome() {
+    return async function (dispatch) {
+        try {
+            dispatch(setLoading())
+            const response = await axios({
+                method: 'get',
+                url: '/admin',
+                headers: {
+                    token: localStorage.getItem('access_token')
+                }
+            })
+            dispatch(setAllDataAdmin(response.data))
+        } catch (err) {
+            if (err.response) {
+                dispatch(setError({ error: err.response.data.error }))
+            } else {
+                dispatch(setError({ error: 'unhandle error' }))
+            }
+        }
+    }
 }
 
-export function setError(error) {
-    return { type: 'SET_ERROR', payload: error }
+// Skill Actions
+export function fetchAllSkills() {
+    return async function (dispatch) {
+        try {
+            dispatch(setLoading())
+            const response = await axios({
+                method: 'get',
+                url: '/admin/skills',
+                headers: {
+                    token: localStorage.getItem('access_token')
+                }
+            })
+            dispatch(setAllSkills(response.data))
+        } catch (err) {
+            if (err.response) {
+                dispatch(setError({ error: err.response.data.error }))
+            } else {
+                dispatch(setError({ error: 'unhandle error' }))
+            }
+        }
+    }
+}
+export function fetchOneSkill(id) {
+    return async function (dispatch) {
+        try {
+            dispatch(setLoading())
+            const response = await axios({
+                method: 'get',
+                url: '/admin/skill/'+id,
+                headers: {
+                    token: localStorage.getItem('access_token')
+                }
+            })
+            dispatch(setOneSkill(response.data))
+        } catch (err) {
+            if (err.response) {
+                dispatch(setError({ error: err.response.data.error }))
+            } else {
+                dispatch(setError({ error: 'unhandle error' }))
+            }
+        }
+    }
+}
+export function editSkill(id, data) {
+    return async function (dispatch) {
+        try {
+            await axios({
+                method: 'put',
+                url: '/admin/skill/edit/'+id,
+                headers: {
+                    token: localStorage.getItem('access_token')
+                },
+                data: data
+            })
+            dispatch(fetchAllSkills())
+        } catch (err) {
+            if (err.response) {
+                dispatch(setError({ error: err.response.data.error }))
+            } else {
+                dispatch(setError({ error: 'unhandle error' }))
+            }
+        }
+    }
 }
 
 // Post Actions
@@ -65,7 +174,7 @@ export function fetchAllPosts() {
             })
             dispatch(setAllPosts(response.data))
         } catch (err) {
-            if (err.response.data) {
+            if (err.response) {
                 dispatch(setError({ error: err.response.data.error }))
             } else {
                 dispatch(setError({ error: 'unhandle error' }))
@@ -73,7 +182,6 @@ export function fetchAllPosts() {
         }
     }
 }
-
 export function fetchOnePost(id) {
     return async function (dispatch) {
         try {
@@ -87,7 +195,7 @@ export function fetchOnePost(id) {
             })
             dispatch(setOnePost(response.data))
         } catch (err) {
-            if (err.response.data) {
+            if (err.response) {
                 dispatch(setError({ error: err.response.data.error }))
             } else {
                 dispatch(setError({ error: 'unhandle error' }))
@@ -95,11 +203,10 @@ export function fetchOnePost(id) {
         }
     }
 }
-
 export function addPost(data) {
     return async function (dispatch) {
         try {
-            const response = await axios({
+            await axios({
                 method: 'post',
                 url: '/admin/post/add',
                 headers: {
@@ -107,9 +214,9 @@ export function addPost(data) {
                 },
                 data: data
             })
-            dispatch(saveAddPost(response.data))
+            dispatch(fetchAllPosts())
         } catch (err) {
-            if (err.response.data) {
+            if (err.response) {
                 dispatch(setError({ error: err.response.data.error }))
             } else {
                 dispatch(setError({ error: 'unhandle error' }))
@@ -117,11 +224,10 @@ export function addPost(data) {
         }
     }
 }
-
 export function editPost(id, data) {
     return async function (dispatch) {
         try {
-            const response = await axios({
+            await axios({
                 method: 'put',
                 url: '/admin/post/edit/'+id,
                 headers: {
@@ -129,9 +235,9 @@ export function editPost(id, data) {
                 },
                 data: data
             })
-            dispatch(saveEditPost(response.data))
+            dispatch(fetchAllPosts())
         } catch (err) {
-            if (err.response.data) {
+            if (err.response) {
                 dispatch(setError({ error: err.response.data.error }))
             } else {
                 dispatch(setError({ error: 'unhandle error' }))
@@ -139,7 +245,6 @@ export function editPost(id, data) {
         }
     }
 }
-
 export function deletePost(id) {
     return async function (dispatch) {
         try {
@@ -152,7 +257,113 @@ export function deletePost(id) {
             })
             dispatch(saveDeletePost(id))
         } catch (err) {
-            if (err.response.data) {
+            if (err.response) {
+                dispatch(setError({ error: err.response.data.error }))
+            } else {
+                dispatch(setError({ error: 'unhandle error' }))
+            }
+        }
+    }
+}
+
+// Post Category Actions
+export function fetchAllPostCategory() {
+    return async function (dispatch) {
+        try {
+            dispatch(setLoading())
+            const response = await axios({
+                method: 'get',
+                url: '/admin/postcategories',
+                headers: {
+                    token: localStorage.getItem('access_token')
+                }
+            })
+            dispatch(setAllPostCategories(response.data))
+        } catch (err) {
+            if (err.response) {
+                dispatch(setError({ error: err.response.data.error }))
+            } else {
+                dispatch(setError({ error: 'unhandle error' }))
+            }
+        }
+    }
+}
+export function fetchOnePostCategory(id) {
+    return async function (dispatch) {
+        try {
+            dispatch(setLoading())
+            const response = await axios({
+                method: 'get',
+                url: '/admin/postcategory/'+id,
+                headers: {
+                    token: localStorage.getItem('access_token')
+                }
+            })
+            dispatch(setOnePostCategory(response.data))
+        } catch (err) {
+            if (err.response) {
+                dispatch(setError({ error: err.response.data.error }))
+            } else {
+                dispatch(setError({ error: 'unhandle error' }))
+            }
+        }
+    }
+}
+export function addPostCategory(data) {
+    return async function (dispatch) {
+        try {
+            const response = await axios({
+                method: 'post',
+                url: '/admin/postcategory/add',
+                headers: {
+                    token: localStorage.getItem('access_token')
+                },
+                data: data
+            })
+            dispatch(saveAddPostCategory(response.data))
+        } catch (err) {
+            if (err.response) {
+                dispatch(setError({ error: err.response.data.error }))
+            } else {
+                dispatch(setError({ error: 'unhandle error' }))
+            }
+        }
+    }
+}
+export function editPostCategory(id, data) {
+    return async function (dispatch) {
+        try {
+            await axios({
+                method: 'put',
+                url: '/admin/postcategory/edit/'+id,
+                headers: {
+                    token: localStorage.getItem('access_token')
+                },
+                data: data
+            })
+            dispatch(fetchAllPostCategory())
+        } catch (err) {
+            if (err.response) {
+                dispatch(setError({ error: err.response.data.error }))
+            } else {
+                dispatch(setError({ error: 'unhandle error' }))
+            }
+        }
+    }
+}
+export function deletePostCategory(id) {
+    return async function (dispatch) {
+        try {
+            await axios({
+                method: 'delete',
+                url: '/admin/postcategory/delete/'+id,
+                headers: {
+                    token: localStorage.getItem('access_token')
+                }
+            })
+            dispatch(saveDeletePostCategory(id))
+        } catch (err) {
+            if (err.response) {
                 dispatch(setError({ error: err.response.data.error }))
             } else {
                 dispatch(setError({ error: 'unhandle error' }))
@@ -175,7 +386,7 @@ export function fetchAllProjects() {
             })
             dispatch(setAllProjects(response.data))
         } catch (err) {
-            if (err.response.data) {
+            if (err.response) {
                 dispatch(setError({ error: err.response.data.error }))
             } else {
                 dispatch(setError({ error: 'unhandle error' }))
@@ -183,7 +394,6 @@ export function fetchAllProjects() {
         }
     }
 }
-
 export function fetchOneProject(id) {
     return async function (dispatch) {
         try {
@@ -197,7 +407,7 @@ export function fetchOneProject(id) {
             })
             dispatch(setOneProject(response.data))
         } catch (err) {
-            if (err.response.data) {
+            if (err.response) {
                 dispatch(setError({ error: err.response.data.error }))
             } else {
                 dispatch(setError({ error: 'unhandle error' }))
@@ -205,11 +415,10 @@ export function fetchOneProject(id) {
         }
     }
 }
-
 export function addProject(data) {
     return async function (dispatch) {
         try {
-            const response = await axios({
+            await axios({
                 method: 'post',
                 url: '/admin/project/add',
                 headers: {
@@ -217,9 +426,9 @@ export function addProject(data) {
                 },
                 data: data
             })
-            dispatch(saveAddProject(response.data))
+            dispatch(fetchAllProjects())
         } catch (err) {
-            if (err.response.data) {
+            if (err.response) {
                 dispatch(setError({ error: err.response.data.error }))
             } else {
                 dispatch(setError({ error: 'unhandle error' }))
@@ -227,11 +436,10 @@ export function addProject(data) {
         }
     }
 }
-
 export function editProject(id, data) {
     return async function (dispatch) {
         try {
-            const response = await axios({
+            await axios({
                 method: 'put',
                 url: '/admin/project/edit/'+id,
                 headers: {
@@ -239,9 +447,9 @@ export function editProject(id, data) {
                 },
                 data: data
             })
-            dispatch(saveEditProject(response.data))
+            dispatch(fetchAllProjects())
         } catch (err) {
-            if (err.response.data) {
+            if (err.response) {
                 dispatch(setError({ error: err.response.data.error }))
             } else {
                 dispatch(setError({ error: 'unhandle error' }))
@@ -249,7 +457,6 @@ export function editProject(id, data) {
         }
     }
 }
-
 export function deleteProject(id) {
     return async function (dispatch) {
         try {
@@ -262,7 +469,113 @@ export function deleteProject(id) {
             })
             dispatch(saveDeleteProject(id))
         } catch (err) {
-            if (err.response.data) {
+            if (err.response) {
+                dispatch(setError({ error: err.response.data.error }))
+            } else {
+                dispatch(setError({ error: 'unhandle error' }))
+            }
+        }
+    }
+}
+
+// Project Category Actions
+export function fetchAllProjectCategory() {
+    return async function (dispatch) {
+        try {
+            dispatch(setLoading())
+            const response = await axios({
+                method: 'get',
+                url: '/admin/projectcategories',
+                headers: {
+                    token: localStorage.getItem('access_token')
+                }
+            })
+            dispatch(setAllProjectCategories(response.data))
+        } catch (err) {
+            if (err.response) {
+                dispatch(setError({ error: err.response.data.error }))
+            } else {
+                dispatch(setError({ error: 'unhandle error' }))
+            }
+        }
+    }
+}
+export function fetchOneProjectCategory(id) {
+    return async function (dispatch) {
+        try {
+            dispatch(setLoading())
+            const response = await axios({
+                method: 'get',
+                url: '/admin/projectcategory/'+id,
+                headers: {
+                    token: localStorage.getItem('access_token')
+                }
+            })
+            dispatch(setOneProjectCategory(response.data))
+        } catch (err) {
+            if (err.response) {
+                dispatch(setError({ error: err.response.data.error }))
+            } else {
+                dispatch(setError({ error: 'unhandle error' }))
+            }
+        }
+    }
+}
+export function addProjectCategory(data) {
+    return async function (dispatch) {
+        try {
+            const response = await axios({
+                method: 'post',
+                url: '/admin/projectcategory/add',
+                headers: {
+                    token: localStorage.getItem('access_token')
+                },
+                data: data
+            })
+            dispatch(saveAddProjectCategory(response.data))
+        } catch (err) {
+            if (err.response) {
+                dispatch(setError({ error: err.response.data.error }))
+            } else {
+                dispatch(setError({ error: 'unhandle error' }))
+            }
+        }
+    }
+}
+export function editProjectCategory(id, data) {
+    return async function (dispatch) {
+        try {
+            await axios({
+                method: 'put',
+                url: '/admin/projectcategory/edit/'+id,
+                headers: {
+                    token: localStorage.getItem('access_token')
+                },
+                data: data
+            })
+            dispatch(fetchAllProjectCategory())
+        } catch (err) {
+            if (err.response) {
+                dispatch(setError({ error: err.response.data.error }))
+            } else {
+                dispatch(setError({ error: 'unhandle error' }))
+            }
+        }
+    }
+}
+export function deleteProjectCategory(id) {
+    return async function (dispatch) {
+        try {
+            await axios({
+                method: 'delete',
+                url: '/admin/projectcategory/delete/'+id,
+                headers: {
+                    token: localStorage.getItem('access_token')
+                }
+            })
+            dispatch(saveDeleteProjectCategory(id))
+        } catch (err) {
+            if (err.response) {
                 dispatch(setError({ error: err.response.data.error }))
             } else {
                 dispatch(setError({ error: 'unhandle error' }))

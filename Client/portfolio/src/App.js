@@ -14,13 +14,19 @@ import AdminAdd from './views/admin/Add'
 import Home from './views/site/Home'
 import Projects from './views/site/Projects'
 import ProjectSingle from './views/site/ProjectSingle'
-import PostSingle from './views/site/PostSingle'
 
 function App() {
   return (
     <Router>
       <Switch>
-        {/* Admin */}
+        {/* Skill */}
+        <Route exact path="/admin/skills">
+          <AdminBrowse/>
+        </Route>
+        <Route exact path="/admin/skill/edit/:id">
+          <AdminEdit/>
+        </Route>
+        {/* post */}
         <Route exact path="/admin/posts">
           <AdminBrowse/>
         </Route>
@@ -33,6 +39,17 @@ function App() {
         <Route exact path="/admin/post/edit/:id">
           <AdminEdit/>
         </Route>
+        {/* post category */}
+        <Route exact path="/admin/postcategories">
+          <AdminBrowse/>
+        </Route>
+        <Route exact path="/admin/catpost/add">
+          <AdminAdd/>
+        </Route>
+        <Route exact path="/admin/catpost/edit/:id">
+          <AdminEdit/>
+        </Route>
+        {/* project */}
         <Route exact path="/admin/projects">
           <AdminBrowse/>
         </Route>
@@ -45,6 +62,17 @@ function App() {
         <Route exact path="/admin/project/edit/:id">
           <AdminEdit/>
         </Route>
+        {/* project category */}
+        <Route exact path="/admin/projectcategories">
+          <AdminBrowse/>
+        </Route>
+        <Route exact path="/admin/catproject/add">
+          <AdminAdd/>
+        </Route>
+        <Route exact path="/admin/catproject/edit/:id">
+          <AdminEdit/>
+        </Route>
+        {/* login and home */}
         <Route exact path="/admin/login">
           <AdminLogin/>
         </Route>
@@ -52,9 +80,6 @@ function App() {
           <AdminHome/>
         </Route>
         {/* Site */}
-        <Route exact path="/post/:id">
-          <PostSingle/>
-        </Route>
         <Route exact path="/project/:id">
           <ProjectSingle/>
         </Route>

@@ -21,7 +21,7 @@ export default function SinglePost() {
         return (
         <>
             <h1>Well, this is awkward</h1>
-            <Link to="/" className="btn btn-primary">Home</Link>
+            <Link to="/admin" className="btn btn-primary">back to home or try refresh</Link>
         </>
         )
     } else {

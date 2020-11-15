@@ -3,6 +3,9 @@ import { useLocation, useHistory } from 'react-router-dom'
 import AdminNavbar from '../../components/admin/Navbar'
 import ProjectTable from '../../components/admin/table/ProjectTable'
 import PostTable from '../../components/admin/table/PostTable'
+import PostCategoryTable from '../../components/admin/table/PostCategoryTable'
+import ProjectCategoryTable from '../../components/admin/table/ProjectCategoryTable'
+import SkillTable from '../../components/admin/table/SkillTable'
 
 export default function Browse() {
     const { pathname } = useLocation()
@@ -23,6 +26,15 @@ export default function Browse() {
                 }
                 {pathname.slice(7, 15) === "projects" &&     
                     <ProjectTable/>
+                }
+                {pathname.slice(7, 21) === "postcategories" &&     
+                    <PostCategoryTable/>
+                }
+                {pathname.slice(7, 24) === "projectcategories" &&     
+                    <ProjectCategoryTable/>
+                }
+                {pathname.slice(7, 13) === "skills" &&     
+                    <SkillTable/>
                 }
             </div>
         </>

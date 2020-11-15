@@ -32,10 +32,10 @@ module.exports = {
         type: Sequelize.STRING
       },
       featured: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.INTEGER
       },
       isdone: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.INTEGER
       },
       UserId: {
         type: Sequelize.INTEGER,

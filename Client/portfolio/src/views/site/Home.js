@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import Navbar from '../../components/site/Navbar'
 import FeaturedProject from '../../components/site/FeaturedProject'
-import FeaturedPost from '../../components/site/FeaturedPost'
 import Footer from '../../components/site/Footer'
 import Hire from '../../components/site/Hire'
 
@@ -14,8 +13,10 @@ export default function Home() {
     const dispatch = useDispatch()
     const projects = useSelector((state) => state.siteReducer.projects)
     const posts = useSelector((state) => state.siteReducer.posts)
+    const skills = useSelector((state) => state.siteReducer.skills)
     const isLoading = useSelector((state) => state.siteReducer.isLoading)
     const isError = useSelector((state) => state.siteReducer.isError)
+    const errorMessage = useSelector((state) => state.siteReducer.errorMessage)
 
     useEffect(() => {
         dispatch(fetchHomeData())
@@ -26,6 +27,7 @@ export default function Home() {
         <>
             <Navbar/>
             <h1>Well, this is awkward</h1>
+            <h1>{errorMessage.error}</h1>
         </>
         )
     } else if (isLoading) {
@@ -57,62 +59,19 @@ export default function Home() {
                                 </div>
                             </div>
                             <div className="row">
-                                <div className="col-md-4">
-                                    <div className="skills">
-                                        <span className="icon"><i className="fa fa-code"></i></span>
-                                        <div className="desc">
-                                            <h3>Fullstack Developer</h3>
-                                            <p>Separated they live in Bookmarksgrove right at the coast</p>
+                            { skills.map((skill) => {
+                                return <React.Fragment key={skill.id}>
+                                    <div className="col-md-4">
+                                        <div className="skills">
+                                            <span className="icon"><i className={skill.icon}></i></span>
+                                            <div className="desc">
+                                                <h3>{skill.title}</h3>
+                                                <p>{skill.detail}</p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div className="col-md-4">
-                                    <div className="skills">
-                                        <span className="icon"><i className="fa fa-desktop"></i></span>
-                                        <div className="desc">
-                                            <h3>Frontend Developer</h3>
-                                            <p>Separated they live in Bookmarksgrove right at the coast</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-md-4">
-                                    <div className="skills">
-                                        <span className="icon"><i className="fa fa-server"></i></span>
-                                        <div className="desc">
-                                            <h3>Backend Developer</h3>
-                                            <p>Separated they live in Bookmarksgrove right at the coast</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="col-md-4">
-                                    <div className="skills">
-                                        <span className="icon"><i className="fa fa-warning"></i></span>
-                                        <div className="desc">
-                                            <h3>Unit Testing</h3>
-                                            <p>Separated they live in Bookmarksgrove right at the coast</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-md-4">
-                                    <div className="skills">
-                                        <span className="icon"><i className="fa fa-database"></i></span>
-                                        <div className="desc">
-                                            <h3>Database</h3>
-                                            <p>Separated they live in Bookmarksgrove right at the coast</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-md-4">
-                                    <div className="skills">
-                                        <span className="icon"><i className="fa fa-wrench"></i></span>
-                                        <div className="desc">
-                                            <h3>Help &amp; Support</h3>
-                                            <p>Separated they live in Bookmarksgrove right at the coast</p>
-                                        </div>
-                                    </div>
-                                </div>
+                                </React.Fragment>
+                            })}
                             </div>
                         </div>
                     </div>
@@ -128,37 +87,6 @@ export default function Home() {
                             { projects.map((project) => {
                                 return <FeaturedProject key={project.id} project={project}/>
                             })}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="app-blog">
-                        <div className="container-fluid">
-                            <div className="row">
-                                <div className="col-md-12 col-md-offset-2 text-center intro-heading">
-                                    <h2>Blog</h2>
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="blog-flex">
-                                    <div className="one-forth blog-img">
-                                    </div>
-                                    <div className="three-forth">
-                                        <div className="row">
-                                        { posts.map((post) => {
-                                            return <FeaturedPost key={post.id} post={post}/>
-                                        })}
-                                        </div>
-                                        {/* <div className="container">
-                                            <div className="row">
-                                                <p className="prev-next">
-                                                    <a href="#" className="previous text-left"><i className="icon-arrow-left4"></i> Previous</a>
-                                                    <a href="#" className="next text-right">Next <i className="icon-arrow-right4"></i></a>
-                                                </p>
-                                            </div>
-                                        </div> */}
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>

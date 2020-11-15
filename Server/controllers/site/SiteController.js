@@ -1,11 +1,11 @@
-const { Post, Project, ProjectCategory, PostCategory, User } = require('../../models/index')
+const { Post, Project, ProjectCategory, PostCategory, User, Skill } = require('../../models/index')
 
 class SiteController {
     static async home(req, res, next) {
         try {
             const projects = await Project.findAll({
                 where: {
-                    featured: true
+                    featured: 1
                 },
                 order: [['createdAt', 'DESC']],
                 include: [
@@ -15,7 +15,7 @@ class SiteController {
             })
             const posts = await Post.findAll({
                 where: {
-                    featured: true
+                    featured: 1
                 },
                 order: [['createdAt', 'DESC']],
                 include: [
@@ -23,12 +23,16 @@ class SiteController {
                     { model: User, attributes: ['name', 'email', 'avatar'] }
                 ]
             })
+            const skills = await Skill.findAll({
+                order: [['order', 'ASC']]
+            })
             res.status(200).json({
                 projects: projects,
-                posts: posts
+                posts: posts,
+                skills: skills
             })
         } catch (err) {
-            res.status(500).json({ message: "server error" })
+            next(err)
         }
     }
 
