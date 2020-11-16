@@ -7,7 +7,7 @@ class SiteController {
                 where: {
                     featured: 1
                 },
-                order: [['createdAt', 'DESC']],
+                order: [['updatedAt', 'DESC']],
                 include: [
                     { model: ProjectCategory, as: 'ProjectCategories', through: { attributes: [] } },
                     { model: User, attributes: ['name', 'email', 'avatar'] }
@@ -17,7 +17,7 @@ class SiteController {
                 where: {
                     featured: 1
                 },
-                order: [['createdAt', 'DESC']],
+                order: [['updatedAt', 'DESC']],
                 include: [
                     { model: PostCategory, as: 'PostCategories', through: { attributes: [] } },
                     { model: User, attributes: ['name', 'email', 'avatar'] }
@@ -39,7 +39,7 @@ class SiteController {
     static async browseProject(req, res, next) {
         try {
             const projects = await Project.findAll({
-                order: [['createdAt', 'DESC']],
+                order: [['updatedAt', 'DESC']],
                 include: [
                     { model: ProjectCategory, as: 'ProjectCategories', through: { attributes: [] } },
                     { model: User, attributes: ['name', 'email', 'avatar'] }
@@ -75,7 +75,7 @@ class SiteController {
     static async browsePost(req, res, next) {
         try {
             const posts = await Post.findAll({
-                order: [['createdAt', 'DESC']],
+                order: [['updatedAt', 'DESC']],
                 include: [
                     { model: PostCategory, as: 'PostCategories', through: { attributes: [] } },
                     { model: User, attributes: ['name', 'email', 'avatar'] }

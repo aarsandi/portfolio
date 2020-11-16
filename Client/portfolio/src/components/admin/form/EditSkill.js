@@ -9,7 +9,7 @@ export default function EditSkill() {
     const { id } = useParams()
 
     const skills = useSelector((state) => state.adminReducer.skills)
-    const skill = skills.find(skill => skill.id == id)
+    const skill = skills.find(skill => skill.id === Number(id))
     const isError = useSelector((state) => state.adminReducer.isError)
 
     const [title, setTitle] = useState(skill ? skill.title : '')

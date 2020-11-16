@@ -5,7 +5,7 @@ export default function FeaturedProject({project}) {
     return (
         <>
             <div className="col-md-6 text-center">
-                <Link to={'/project/'+ project.id} className="project-img" style={{ backgroundImage: "url('/assets/projects/work-1.jpg')" }}>
+                <Link to={'/project/'+ project.id} className="project-img" style={{ backgroundImage: "url('/assets/project-demo.jpg')" }}>
                     <div className="overlay"></div>
                     <div className="desc">
                         <p className="tag"><span>Illustration</span>, <span>Logo</span></p>

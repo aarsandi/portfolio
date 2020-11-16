@@ -17,9 +17,9 @@ export default function Home() {
     const errorMessage = useSelector((state) => state.adminReducer.errorMessage)
 
     useEffect(() => {
-        if (localStorage.getItem('access_token') === null) {
+        if (!localStorage.getItem('access_token')) {
             history.push("/admin/login")
-        } else if (posts.length == 0 || projects.length == 0) {
+        } else if (!posts.length || !projects.length) {
             dispatch(fetchDataHome())
         }
     },[history, dispatch, posts, projects])

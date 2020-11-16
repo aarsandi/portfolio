@@ -53,9 +53,7 @@ class ProjectController {
             }
             const { ProjectCategories } = req.body
             const project = await Project.create(newProject)
-            if (ProjectCategories && ProjectCategories.length > 0) {
-                project.setProjectCategories(ProjectCategories)
-            }
+            project.setProjectCategories(ProjectCategories)
             res.status(201).json(project)
         } catch (err) {
             if (err.name === "SequelizeValidationError") {
@@ -98,9 +96,7 @@ class ProjectController {
                 })
             } else {
                 project.update(newProject)
-                if (ProjectCategories && ProjectCategories.length > 0) {
-                    project.setProjectCategories(ProjectCategories)
-                }
+                project.setProjectCategories(ProjectCategories)
                 res.status(201).json(project)
             }
         } catch(err) {

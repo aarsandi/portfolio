@@ -14,7 +14,7 @@ export default function EditPost() {
 
     const posts = useSelector((state) => state.adminReducer.posts)
     const postcategories = useSelector((state) => state.adminReducer.postcategories)
-    const post = posts.find(post => post.id == id)
+    const post = posts.find(post => post.id === Number(id))
 
     const [title, setTitle] = useState(post ? post.title : '')
     const [detail, setDetail] = useState(post ? post.detail : '')
@@ -56,7 +56,6 @@ export default function EditPost() {
                 </div>
                 <div className="form-group">
                 <label>Content</label>
-                    {/* <input type="text" className="form-control" value={content} onChange={(event) => { setContent(event.target.value) }}/> */}
                     <CKEditor 
                         editor={ClassicEditor}
                         data={content}

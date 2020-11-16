@@ -14,7 +14,7 @@ export default function EditProject() {
 
     const projects = useSelector((state) => state.adminReducer.projects)
     const projectcategories = useSelector((state) => state.adminReducer.projectcategories)
-    const project = projects.find(project => project.id == id)
+    const project = projects.find(project => project.id === Number(id))
 
     const [title, setTitle] = useState(project ? project.title : '')
     const [detail, setDetail] = useState(project ? project.detail : '')
@@ -59,7 +59,6 @@ return (
             </div>
             <div className="form-group">
                 <label>content</label>
-                {/* <input type="text" className="form-control" value={content} onChange={(event) => { setContent(event.target.value) }}/> */}
                 <CKEditor 
                     editor={ClassicEditor}
                     data={content}

@@ -42,7 +42,7 @@ export default function timeSince(date) {
       }
       let i = 0,
         format;
-      while (format = time_formats[i++])
+      while ((format = time_formats[i++]))
         if (seconds < format[0]) {
           if (typeof format[2] == 'string')
             return format[list_choice];

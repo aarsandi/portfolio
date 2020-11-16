@@ -12,7 +12,6 @@ import AdminAdd from './views/admin/Add'
 
 // Site Page
 import Home from './views/site/Home'
-import Projects from './views/site/Projects'
 import ProjectSingle from './views/site/ProjectSingle'
 
 function App() {
@@ -82,9 +81,6 @@ function App() {
         {/* Site */}
         <Route exact path="/project/:id">
           <ProjectSingle/>
-        </Route>
-        <Route exact path="/projects">
-          <Projects/>
         </Route>
         <Route exact path="/">
           <Home/>

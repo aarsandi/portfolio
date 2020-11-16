@@ -10,7 +10,7 @@ export default function EditProjectCategory() {
 
     const projectcategories = useSelector((state) => state.adminReducer.projectcategories)
     const isError = useSelector((state) => state.adminReducer.isError)
-    const projectcategory = projectcategories.find(projectcategory => projectcategory.id == id)
+    const projectcategory = projectcategories.find(projectcategory => projectcategory.id === Number(id))
 
     const [title, setTitle] = useState(projectcategory ? projectcategory.title : '')
     

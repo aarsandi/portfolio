@@ -44,6 +44,7 @@ export default function AddPost() {
     return (
         <>
             <h1 className="text-center">Add Post</h1>
+            { isError && <h1 className="text-center">{errorMessage}</h1> }
             <form onSubmit={addPostSubmit} className="mb-5">
                 <div className="form-group">
                     <label>Title</label>
@@ -92,10 +93,9 @@ export default function AddPost() {
                             displayValue="title"
                         />
                     }
-                    { isError && 
+                    { !postcategories.length && 
                         <>
                             <h1>Cannot fetching data please refresh</h1>
-                            <h1>{errorMessage.error}</h1>
                         </>
                     }
                 </div>

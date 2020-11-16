@@ -4,13 +4,6 @@
         "email": "admin@mail.com",
         "password": "password",
         "role": "admin",
-        "avatar": "admin"
-    },
-    {
-        "name": "user",
-        "email": "user@mail.com",
-        "password": "password",
-        "role": "user",
-        "avatar": "user"
+        "avatar": ""
     }
 ]

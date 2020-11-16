@@ -12,7 +12,7 @@ export default function Edit() {
     const history = useHistory();
 
     useEffect(() => {
-        if (localStorage.getItem('access_token') === null) {
+        if (!localStorage.getItem('access_token')) {
             history.push("/admin/login")
         }
     },[history])

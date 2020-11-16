@@ -9,7 +9,7 @@ export default function EditPostCategory() {
     const { id } = useParams()
 
     const postcategories = useSelector((state) => state.adminReducer.postcategories)
-    const postcategory = postcategories.find(postcategory => postcategory.id == id)
+    const postcategory = postcategories.find(postcategory => postcategory.id === Number(id))
     const isError = useSelector((state) => state.adminReducer.isError)
 
     const [title, setTitle] = useState(postcategory ? postcategory.title : '')

@@ -18,7 +18,6 @@ export default function Navbar() {
                     <ul id="nav" className="nav">
                         <li><Link to="/">Home</Link></li>
                         <li><Link to="/projects">Project</Link></li>
-                        <li><Link to="/admin">Admin</Link></li>
                     </ul>
                 </div>
             </div>

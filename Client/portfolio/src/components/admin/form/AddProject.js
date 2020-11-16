@@ -46,6 +46,7 @@ export default function AddProject() {
     return (
         <>
             <h1 className="text-center">Add Project</h1>
+            { isError && <h1 className="text-center">{errorMessage}</h1> }
             <form onSubmit={addProjectSubmit} className="mb-5">
                 <div className="form-group">
                     <label>Title</label>
@@ -82,21 +83,21 @@ export default function AddProject() {
                     <label>demo link</label>
                     <input type="text" className="form-control" onChange={(event) => { setDemolink(event.target.value) }}/>
                 </div>
-                <div class="form-group">
+                <div className="form-group">
                     <label>Featured</label>
-                    <select class="form-control" value={featured} onChange={(event) => { setFeatured(Number(event.target.value)) }}>
+                    <select className="form-control" value={featured} onChange={(event) => { setFeatured(Number(event.target.value)) }}>
                         <option value="1">yes</option>
                         <option value="0">no</option>
                     </select>
                 </div>
-                <div class="form-group">
+                <div className="form-group">
                     <label>Is Done</label>
-                    <select class="form-control" value={isdone} onChange={(event) => { setIsDone(Number(event.target.value)) }}>
+                    <select className="form-control" value={isdone} onChange={(event) => { setIsDone(Number(event.target.value)) }}>
                         <option value="1">yes</option>
                         <option value="0">no</option>
                     </select>
                 </div>
-                <div class="form-group">
+                <div className="form-group">
                     <label>Project Category</label>
                     { projectcategories.length > 0 && 
                         <Multiselect options={projectcategories}
@@ -109,10 +110,9 @@ export default function AddProject() {
                             displayValue="title"
                         />
                     }
-                    { isError && 
+                    { !projectcategories.length && 
                         <>
                             <h1>Cannot fetching data category please refresh</h1>
-                            <h1>{errorMessage.error}</h1>
                         </>
                     }
                 </div>

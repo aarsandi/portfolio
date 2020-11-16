@@ -31,15 +31,15 @@ export default function ProjectSingle() {
     } else {
         return (
             <>
-                <Navbar/>
                 <div id="app">
                     <aside className="hero">
                         <div className="container">
                             <div className="row">
                                 <div className="col-md-8 col-sm-12 col-md-offset-2 col-md-pull-2 hero-text">
                                     <div className="hero-text-inner">
-                                        <h2>Done Project</h2>
                                         <h1>{project.title}</h1>
+                                        <h2>Done Project</h2>
+                                        <p><Link to="/" className="btn btn-primary btn-learn">Back to Home</Link></p>
                                     </div>
                                 </div>
                             </div>
@@ -50,10 +50,11 @@ export default function ProjectSingle() {
                         <div className="container">
                             <div className="row">
                                 <div className="col-md-7">
-                                    <img className="img-fluid mb-3" src='/assets/projects/work-2.jpg' alt="work"/>
-                                    <img className="img-fluid mb-3" src="/assets/projects/work-2.jpg" alt="work"/>
-                                    <img className="img-fluid mb-3" src="/assets/projects/work-3.jpg" alt="work"/>
-                                    <img className="img-fluid mb-3" src="/assets/projects/work-4.jpg" alt="work"/>
+                                {/* { project.images.map((image, index) => {
+                                    return <React.Fragment key={index}>
+                                    </React.Fragment>
+                                })} */}
+                                <img className="img-fluid mb-3" src="hjhj" alt="work"/>
                                 </div>
                                 <div className="col-md-4 col-md-push-1">
                                     <div className="project-detail">
@@ -69,7 +70,7 @@ export default function ProjectSingle() {
                                     <h2>Related Works</h2>
                                 </div>
                                 <div className="col-md-6 text-center">
-                                    <a href="work-single.html" className="project-img" style={{ backgroundImage: "url('/assets/projects/work-2.jpg')" }}>
+                                    <a href="work-single.html" className="project-img" style={{ backgroundImage: "url('/assets/project-demo.jpg')" }}>
                                         <div className="overlay"></div>
                                         <div className="desc">
                                             <span className="icon"><i className="icon-heart-outline"></i></span>
@@ -80,7 +81,7 @@ export default function ProjectSingle() {
                                     </a>
                                 </div>
                                 <div className="col-md-6 text-center">
-                                    <a href="work-single.html" className="project-img" style={{ backgroundImage: "url('/assets/projects/work-2.jpg')" }}>
+                                    <a href="work-single.html" className="project-img" style={{ backgroundImage: "url('/assets/project-demo.jpg')" }}>
                                         <div className="overlay"></div>
                                         <div className="desc">
                                             <span className="icon"><i className="icon-heart-outline"></i></span>
@@ -93,9 +94,7 @@ export default function ProjectSingle() {
                             </div>
                         </div>
                     </div>
-
                     <Hire/>
-                    
                     <Footer/>
                 </div>
             </>

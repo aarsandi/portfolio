@@ -18,25 +18,13 @@ export default function SkillTable() {
         }
     },[dispatch, skills])
 
-    if (isError) {
-        return (
+    return (
         <>
-            <h1>Well, this is awkward</h1>
-            <h1>{errorMessage.error}</h1>
-        </>
-        )
-    } else if (isLoading) {
-        return <h1>loading......</h1>
-    } else {
-        return (
+            <h1 className="text-center">Browse Skills</h1>
+            { isError && <h1 className="text-center">{errorMessage}</h1> }
+            { isLoading && <h1 className="text-center">Loading.......</h1> }
+            { skills.length > 0 &&
             <>
-                <h1 className="text-center">Browse Skills</h1>
-                {/* <select className="float-right">
-                    <option value="" defaultValue disabled hidden>Sort by</option>
-                    <option>ascending</option>
-                    <option>descending</option>
-                </select>
-                <input className="float-right" type="text" placeholder="Search.."/> */}
                 <table className="table">
                     <thead className="thead-dark">
                         <tr>
@@ -64,6 +52,7 @@ export default function SkillTable() {
                     </tbody>
                 </table>
             </>
-        )
-    }
+            }
+        </>
+    )
 }

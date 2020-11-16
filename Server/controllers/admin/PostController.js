@@ -50,9 +50,7 @@ class PostController {
             }
             const { PostCategories } = req.body
             const post = await Post.create(newPost)
-            if (PostCategories && PostCategories.length > 0) {
-                post.setPostCategories(PostCategories)
-            }
+            post.setPostCategories(PostCategories)
             res.status(201).json(post)
         } catch (err) {
             if (err.name === "SequelizeValidationError") {
@@ -92,9 +90,7 @@ class PostController {
                 })
             } else {
                 post.update(newPost)
-                if (PostCategories && PostCategories.length > 0) {
-                    post.setPostCategories(PostCategories)
-                }
+                post.setPostCategories(PostCategories)
                 res.status(201).json(post)
             }
         } catch(err) {

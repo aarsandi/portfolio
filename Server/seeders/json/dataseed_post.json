@@ -1,29 +1,29 @@
 [
     {
-        "title": "nothing1",
+        "title": "blog 1",
         "detail": "nothing",
         "content": "nothing",
-        "image": null,
-        "images": null,
+        "image": "",
+        "images": "",
         "UserId": 1,
-        "featured": 0
+        "featured": 1
     },
     {
-        "title": "nothing2",
+        "title": "blog 2",
         "detail": "nothing",
         "content": "nothing",
-        "image": null,
-        "images": null,
+        "image": "",
+        "images": "",
         "UserId": 1,
-        "featured": 0
+        "featured": 1
     },
     {
-        "title": "nothing3",
+        "title": "blog 3",
         "detail": "nothing",
         "content": "nothing",
-        "image": null,
-        "images": null,
-        "UserId": 2,
-        "featured": 0
+        "image": "",
+        "images": "",
+        "UserId": 1,
+        "featured": 1
     }
 ]
