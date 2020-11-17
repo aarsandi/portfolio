@@ -50,7 +50,7 @@ export function fetchAllProjects() {
             dispatch(setLoading())
             const response = await axios({
                 method: 'get',
-                url: '/projects'
+                url: '/project'
             })
             dispatch(siteAllProjects(response.data))
         } catch (err) {

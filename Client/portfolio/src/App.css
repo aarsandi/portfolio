@@ -753,6 +753,20 @@ h1, h2, h3, h4, h5, h6 {
     padding: 10px 0;
 }
 
+/* admin image and delete button */
+.img-wrap {
+    position: relative;
+    display: inline;
+}
+.img-wrap button.delete-img {
+    position: absolute;
+    right: 0px;
+    top: -18px;
+    font-size: 14px;
+    padding: 0 5px;
+}
+
+
 /* ==================End of Footer================= */
 
 /* ============================================== End of Home Page =============================================== */

@@ -1,4 +1,8 @@
 const initialState = {
+    isLoading: false,
+    isError: false,
+    errorMessage: {},
+    userLogin: {},
     posts: [],
     post: {},
     projects: [],
@@ -7,15 +11,20 @@ const initialState = {
     postcategory: {},
     projectcategories: [],
     projectcategory: {},
-    userLogin: {},
-    isLoading: false,
-    isError: false,
-    errorMessage: {},
     skills: [],
     skill: {}
 }
 
 function admin(state = initialState, action) {
+    // Loading and Error
+    if (action.type === 'SET_LOADING') {
+        return { ...state, isLoading: true }
+    }
+
+    if (action.type === 'SET_ERROR') {
+        return { ...state, isError: true, errorMessage: action.payload }
+    }
+
     // Home
     if (action.type === 'SETALLDATAADMIN') {
         return { ...state, posts: action.payload.posts, projects: action.payload.projects, userLogin: action.payload.user, isLoading: false, isError: false }
@@ -27,9 +36,6 @@ function admin(state = initialState, action) {
     // Skill
     if (action.type === 'SETALLSKILLS') {
         return { ...state, skills: action.payload, isLoading: false, isError: false }
-    }
-    if (action.type === 'SETONESKILL') {
-        return { ...state, skill: action.payload, isLoading: false, isError: false }
     }
     
     // POST
@@ -82,14 +88,6 @@ function admin(state = initialState, action) {
         return { ...state, projects: state.projects.filter(project => project.id !== action.payload) }
     }
 
-    // Loading and Error
-    if (action.type === 'SET_LOADING') {
-        return { ...state, isLoading: true }
-    }
-
-    if (action.type === 'SET_ERROR') {
-        return { ...state, isError: true, errorMessage: action.payload }
-    }
     return state
 }
 

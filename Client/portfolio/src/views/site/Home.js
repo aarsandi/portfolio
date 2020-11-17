@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import Navbar from '../../components/site/Navbar'
+// import Navbar from '../../components/site/Navbar'
 import FeaturedProject from '../../components/site/FeaturedProject'
 import Footer from '../../components/site/Footer'
 
@@ -73,7 +73,7 @@ export default function Home() {
                             return <FeaturedProject key={project.id} project={project}/>
                         })}
                         </div>
-                        <div class="text-center">
+                        <div className="text-center">
                             <a href="https://github.com/aarsandi" target="_blank" rel="noopener noreferrer" className="btn btn-primary">See more on Github</a>
                         </div>
                     </div>

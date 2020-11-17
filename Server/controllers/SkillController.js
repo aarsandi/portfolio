@@ -1,4 +1,4 @@
-const { Skill } = require('../../models/index')
+const { Skill } = require('../models/index')
 
 class SkillController {
     static async browseSkill(req, res, next) {
@@ -7,22 +7,6 @@ class SkillController {
                 order: [['order', 'ASC']]
             })
             res.status(200).json(skills)
-        } catch (err) {
-            next(err)
-        }
-    }
-
-    static async readSkill(req, res, next) {
-        try {
-            const data = await Skill.findByPk(req.params.id)
-            if(data === null) {
-                next({
-                    name: '404 Not Found',
-                    error: 'Skill not found'
-                })
-            } else {
-                res.status(200).json(data)
-            }
         } catch (err) {
             next(err)
         }

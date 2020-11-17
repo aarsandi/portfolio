@@ -7,6 +7,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 
 import { addPost, fetchAllPostCategory } from '../../../store/actions/admin'
+import { app } from '../../../base'
 
 export default function AddPost() {
     const history = useHistory()
@@ -19,7 +20,7 @@ export default function AddPost() {
     const [detail, setDetail] = useState('')
     const [content, setContent] = useState('')
     const [image, setImage] = useState('')
-    const [images, setImages] = useState('')
+    const [recentImages, setRecentImages] = useState([])
     const [featured, setFeatured] = useState(String(0))
     const [ recentPostCategories, setRecentPostCategories ] = useState([])
     
@@ -31,8 +32,39 @@ export default function AddPost() {
                 PostCategories.push(data.id)
             })
         }
+        let images = JSON.stringify(recentImages)
         dispatch(addPost({ title, detail, content, image, images, featured, PostCategories }))
         history.push('/admin/posts')
+    }
+
+    const onImageChange = async (event) => {
+        const filename = event.target.files[0]
+        const storageRef = app.storage().ref()
+        const date = new Date().toDateString()
+        const fileRef = storageRef.child(`posts/${date}/${filename.name}`)
+        await fileRef.put(filename)
+        setImage(await fileRef.getDownloadURL())
+    }
+    const onDeleteImage = async (event, image) => {
+        event.preventDefault()
+        const storageRef = app.storage().refFromURL(image)
+        await storageRef.delete()
+        setImage('')
+    }
+    const onImagesChange = async (event) => {
+        const filename = event.target.files[0]
+        const storageRef = app.storage().ref()
+        const date = new Date().toDateString()
+        const fileRef = storageRef.child(`posts/${date}/${filename.name}`)
+        await fileRef.put(filename)
+        setRecentImages(recentImages.concat(await fileRef.getDownloadURL()))
+    }
+
+    const onDeleteImages = async (event, image) => {
+        event.preventDefault()
+        const storageRef = app.storage().refFromURL(image)
+        await storageRef.delete()
+        setRecentImages(recentImages.filter(d => d !== image))
     }
 
     useEffect(() => {
@@ -67,11 +99,30 @@ export default function AddPost() {
                 </div>
                 <div className="form-group">
                     <label>image</label>
-                    <input type="text" className="form-control" onChange={(event) => { setImage(event.target.value) }}/>
+                    <input type="file" className="form-control-file" onChange={onImageChange}/>
+                    { image &&
+                    <>
+                        <div className="img-wrap mr-2">
+                            <img src={image} width="80px" alt='error'/>
+                            <button className="delete-img" onClick={(event) => onDeleteImage(event, image)}>x</button>
+                        </div>
+                    </>
+                    }
+                    
                 </div>
                 <div className="form-group">
                     <label>images</label>
-                    <input type="text" className="form-control" onChange={(event) => { setImages(event.target.value) }}/>
+                    <input type="file" className="form-control-file" onChange={onImagesChange}/>
+                    { recentImages.length > 0 && 
+                        recentImages.map((image, index) => {
+                        return <React.Fragment key={index}>
+                            <div className="img-wrap mr-2">
+                                <img src={image} width="80px" alt='error'/>
+                                <button className="delete-img" onClick={(event) => onDeleteImages(event, image)}>x</button>
+                            </div>
+                        </React.Fragment>
+                        })
+                    }
                 </div>
                 <div className="form-group">
                     <label>Featured</label>

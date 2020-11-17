@@ -1,6 +1,6 @@
-const { User, Post, PostCategory, Project, ProjectCategory } = require('../../models/index')
-const { comparePassword } = require('../../helpers/bcrypt')
-const { signToken } = require('../../helpers/jwt')
+const { User, Post, PostCategory, Project, ProjectCategory } = require('../models/index')
+const { comparePassword } = require('../helpers/bcrypt')
+const { signToken } = require('../helpers/jwt')
 
 class AdminController {
     // Login

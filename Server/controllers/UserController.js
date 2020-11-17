@@ -1,4 +1,4 @@
-const {  User } = require('../../models/index')
+const { User } = require('../models/index')
 
 class UserController {
     static async browse(req, res, next) {

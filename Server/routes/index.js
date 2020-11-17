@@ -1,14 +1,26 @@
 const express = require('express')
 const router = express.Router()
+
 const adminRouter = require('./admin')
-const SiteController = require('../controllers/site/SiteController')
+const postRouter = require('./post')
+const postCategoryRouter = require('./postCategory')
+const projectRouter = require('./project')
+const projectCategoryRouter = require('./projectCategory')
+const skillRouter = require('./skill')
+const userRouter = require('./user')
+
+const SiteController = require('../controllers/SiteController')
 
 router.use('/admin', adminRouter)
+router.use('/post', postRouter)
+router.use('/postcategory', postCategoryRouter)
+router.use('/project', projectRouter)
+router.use('/projectcategory', projectCategoryRouter)
+router.use('/skill', skillRouter)
+router.use('/user', userRouter)
 
 router.get('/', SiteController.home)
-router.get('/projects', SiteController.browseProject)
-router.get('/project/:id', SiteController.readProject)
-router.get('/posts', SiteController.browsePost)
-router.get('/post/:id', SiteController.readPost)
+router.get('/relatedpost', SiteController.relatedPost)
+router.get('/relatedproject', SiteController.relatedProject)
 
 module.exports = router

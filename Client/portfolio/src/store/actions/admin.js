@@ -7,6 +7,8 @@ export function setLoading() {
 export function setError(error) {
     return { type: 'SET_ERROR', payload: error }
 }
+
+// Home and Logout
 export function setAllDataAdmin(data) {
     return { type: 'SETALLDATAADMIN', payload: data }
 }
@@ -17,9 +19,6 @@ export function setLogout() {
 // Skill
 export function setAllSkills(skills) {
     return { type: 'SETALLSKILLS', payload: skills }
-}
-export function setOneSkill(skill) {
-    return { type: 'SETONESKILL', payload: skill }
 }
 
 // POST
@@ -47,6 +46,17 @@ export function saveDeletePostCategory(id) {
     return { type: 'DELETEPOSTCATEGORY', payload: id }
 }
 
+// PROJECT
+export function setAllProjects(projects) {
+    return { type: 'SETALLPROJECTS', payload: projects }
+}
+export function setOneProject(project) {
+    return { type: 'SETONEPROJECT', payload: project }
+}
+export function saveDeleteProject(id) {
+    return { type: 'DELETEPROJECT', payload: id }
+}
+
 // Project Category
 export function setAllProjectCategories(projectcategory) {
     return { type: 'SETALLPROJECTCATEGORY', payload: projectcategory }
@@ -59,17 +69,6 @@ export function saveAddProjectCategory(projectcategory) {
 }
 export function saveDeleteProjectCategory(id) {
     return { type: 'DELETEPROJECTCATEGORY', payload: id }
-}
-
-// PROJECT
-export function setAllProjects(projects) {
-    return { type: 'SETALLPROJECTS', payload: projects }
-}
-export function setOneProject(project) {
-    return { type: 'SETONEPROJECT', payload: project }
-}
-export function saveDeleteProject(id) {
-    return { type: 'DELETEPROJECT', payload: id }
 }
 
 // Admin Action
@@ -102,33 +101,9 @@ export function fetchAllSkills() {
             dispatch(setLoading())
             const response = await axios({
                 method: 'get',
-                url: '/admin/skills',
-                headers: {
-                    token: localStorage.getItem('access_token')
-                }
+                url: '/skill'
             })
             dispatch(setAllSkills(response.data))
-        } catch (err) {
-            if (err.response) {
-                dispatch(setError({ error: err.response.data.error }))
-            } else {
-                dispatch(setError({ error: 'unhandle error' }))
-            }
-        }
-    }
-}
-export function fetchOneSkill(id) {
-    return async function (dispatch) {
-        try {
-            dispatch(setLoading())
-            const response = await axios({
-                method: 'get',
-                url: '/admin/skill/'+id,
-                headers: {
-                    token: localStorage.getItem('access_token')
-                }
-            })
-            dispatch(setOneSkill(response.data))
         } catch (err) {
             if (err.response) {
                 dispatch(setError({ error: err.response.data.error }))
@@ -143,7 +118,7 @@ export function editSkill(id, data) {
         try {
             await axios({
                 method: 'put',
-                url: '/admin/skill/edit/'+id,
+                url: '/skill/edit/'+id,
                 headers: {
                     token: localStorage.getItem('access_token')
                 },
@@ -167,10 +142,7 @@ export function fetchAllPosts() {
             dispatch(setLoading())
             const response = await axios({
                 method: 'get',
-                url: '/admin/posts',
-                headers: {
-                    token: localStorage.getItem('access_token')
-                }
+                url: '/post'
             })
             dispatch(setAllPosts(response.data))
         } catch (err) {
@@ -188,10 +160,7 @@ export function fetchOnePost(id) {
             dispatch(setLoading())
             const response = await axios({
                 method: 'get',
-                url: '/admin/post/'+id,
-                headers: {
-                    token: localStorage.getItem('access_token')
-                }
+                url: '/post/'+id
             })
             dispatch(setOnePost(response.data))
         } catch (err) {
@@ -208,7 +177,7 @@ export function addPost(data) {
         try {
             await axios({
                 method: 'post',
-                url: '/admin/post/add',
+                url: '/post/add',
                 headers: {
                     token: localStorage.getItem('access_token')
                 },
@@ -229,7 +198,7 @@ export function editPost(id, data) {
         try {
             await axios({
                 method: 'put',
-                url: '/admin/post/edit/'+id,
+                url: '/post/edit/'+id,
                 headers: {
                     token: localStorage.getItem('access_token')
                 },
@@ -250,7 +219,7 @@ export function deletePost(id) {
         try {
             await axios({
                 method: 'delete',
-                url: '/admin/post/delete/'+id,
+                url: '/post/delete/'+id,
                 headers: {
                     token: localStorage.getItem('access_token')
                 }
@@ -273,7 +242,7 @@ export function fetchAllPostCategory() {
             dispatch(setLoading())
             const response = await axios({
                 method: 'get',
-                url: '/admin/postcategories',
+                url: '/postcategory',
                 headers: {
                     token: localStorage.getItem('access_token')
                 }
@@ -294,10 +263,7 @@ export function fetchOnePostCategory(id) {
             dispatch(setLoading())
             const response = await axios({
                 method: 'get',
-                url: '/admin/postcategory/'+id,
-                headers: {
-                    token: localStorage.getItem('access_token')
-                }
+                url: '/postcategory/'+id
             })
             dispatch(setOnePostCategory(response.data))
         } catch (err) {
@@ -314,7 +280,7 @@ export function addPostCategory(data) {
         try {
             const response = await axios({
                 method: 'post',
-                url: '/admin/postcategory/add',
+                url: '/postcategory/add',
                 headers: {
                     token: localStorage.getItem('access_token')
                 },
@@ -335,7 +301,7 @@ export function editPostCategory(id, data) {
         try {
             await axios({
                 method: 'put',
-                url: '/admin/postcategory/edit/'+id,
+                url: '/postcategory/edit/'+id,
                 headers: {
                     token: localStorage.getItem('access_token')
                 },
@@ -356,7 +322,7 @@ export function deletePostCategory(id) {
         try {
             await axios({
                 method: 'delete',
-                url: '/admin/postcategory/delete/'+id,
+                url: '/postcategory/delete/'+id,
                 headers: {
                     token: localStorage.getItem('access_token')
                 }
@@ -379,10 +345,7 @@ export function fetchAllProjects() {
             dispatch(setLoading())
             const response = await axios({
                 method: 'get',
-                url: '/admin/projects',
-                headers: {
-                    token: localStorage.getItem('access_token')
-                }
+                url: '/project'
             })
             dispatch(setAllProjects(response.data))
         } catch (err) {
@@ -400,10 +363,7 @@ export function fetchOneProject(id) {
             dispatch(setLoading())
             const response = await axios({
                 method: 'get',
-                url: '/admin/project/'+id,
-                headers: {
-                    token: localStorage.getItem('access_token')
-                }
+                url: '/project/'+id
             })
             dispatch(setOneProject(response.data))
         } catch (err) {
@@ -420,7 +380,7 @@ export function addProject(data) {
         try {
             await axios({
                 method: 'post',
-                url: '/admin/project/add',
+                url: '/project/add',
                 headers: {
                     token: localStorage.getItem('access_token')
                 },
@@ -441,7 +401,7 @@ export function editProject(id, data) {
         try {
             await axios({
                 method: 'put',
-                url: '/admin/project/edit/'+id,
+                url: '/project/edit/'+id,
                 headers: {
                     token: localStorage.getItem('access_token')
                 },
@@ -462,7 +422,7 @@ export function deleteProject(id) {
         try {
             await axios({
                 method: 'delete',
-                url: '/admin/project/delete/'+id,
+                url: '/project/delete/'+id,
                 headers: {
                     token: localStorage.getItem('access_token')
                 }
@@ -485,10 +445,7 @@ export function fetchAllProjectCategory() {
             dispatch(setLoading())
             const response = await axios({
                 method: 'get',
-                url: '/admin/projectcategories',
-                headers: {
-                    token: localStorage.getItem('access_token')
-                }
+                url: '/projectcategory'
             })
             dispatch(setAllProjectCategories(response.data))
         } catch (err) {
@@ -506,10 +463,7 @@ export function fetchOneProjectCategory(id) {
             dispatch(setLoading())
             const response = await axios({
                 method: 'get',
-                url: '/admin/projectcategory/'+id,
-                headers: {
-                    token: localStorage.getItem('access_token')
-                }
+                url: '/projectcategory/'+id
             })
             dispatch(setOneProjectCategory(response.data))
         } catch (err) {
@@ -526,7 +480,7 @@ export function addProjectCategory(data) {
         try {
             const response = await axios({
                 method: 'post',
-                url: '/admin/projectcategory/add',
+                url: '/projectcategory/add',
                 headers: {
                     token: localStorage.getItem('access_token')
                 },
@@ -547,7 +501,7 @@ export function editProjectCategory(id, data) {
         try {
             await axios({
                 method: 'put',
-                url: '/admin/projectcategory/edit/'+id,
+                url: '/projectcategory/edit/'+id,
                 headers: {
                     token: localStorage.getItem('access_token')
                 },
@@ -568,7 +522,7 @@ export function deleteProjectCategory(id) {
         try {
             await axios({
                 method: 'delete',
-                url: '/admin/projectcategory/delete/'+id,
+                url: '/projectcategory/delete/'+id,
                 headers: {
                     token: localStorage.getItem('access_token')
                 }

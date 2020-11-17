@@ -1,4 +1,4 @@
-const { Post, PostCategory, User } = require('../../models/index')
+const { Post, PostCategory, User } = require('../models/index')
 
 class PostController {
     static async browsePost(req, res, next) {

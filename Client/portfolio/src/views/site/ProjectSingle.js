@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
 
 import Footer from '../../components/site/Footer'
-import Navbar from '../../components/site/Navbar'
+// import Navbar from '../../components/site/Navbar'
 import Hire from '../../components/site/Hire'
 
 import { fetchOneProject } from '../../store/actions/site'
@@ -38,7 +38,7 @@ export default function ProjectSingle() {
                                 <div className="col-md-8 col-sm-12 col-md-offset-2 col-md-pull-2 hero-text">
                                     <div className="hero-text-inner">
                                         <h1>{project.title}</h1>
-                                        <h2>Done Project</h2>
+                                        <h2>{project.isdone ? 'Done Project' : 'Under Construction'}</h2>
                                         <p><Link to="/" className="btn btn-primary btn-learn">Back to Home</Link></p>
                                     </div>
                                 </div>
@@ -50,15 +50,25 @@ export default function ProjectSingle() {
                         <div className="container">
                             <div className="row">
                                 <div className="col-md-7">
-                                {/* { project.images.map((image, index) => {
-                                    return <React.Fragment key={index}>
-                                    </React.Fragment>
-                                })} */}
-                                <img className="img-fluid mb-3" src="hjhj" alt="work"/>
+                                <img className="img-fluid mb-3" src={project.image} alt="work"/>
+                                { project.images && 
+                                    JSON.parse(project.images).map((image, index) => {
+                                        return <React.Fragment key={index}>
+                                            <img className="img-fluid mb-3" src={image} alt="work"/>
+                                        </React.Fragment>
+
+                                })}
                                 </div>
                                 <div className="col-md-4 col-md-push-1">
                                     <div className="project-detail">
-                                        <p className="tag"><span>Illustration</span>, <span>Logo</span></p>
+                                        <p className="tag">
+                                        { project.ProjectCategories && 
+                                            project.ProjectCategories.map((data, index) => {
+                                                return <React.Fragment key={index}>
+                                                    <span>{data.title}</span>
+                                                </React.Fragment>
+                                        })}
+                                        </p>
                                         <h2>{project.detail}</h2>
                                         <div dangerouslySetInnerHTML={{__html: project.content}} />
                                         <p><a href="https://github.com/aarsandi" className="btn btn-primary">View Live Preview</a></p>

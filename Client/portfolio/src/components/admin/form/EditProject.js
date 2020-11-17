@@ -6,6 +6,7 @@ import { Multiselect } from 'multiselect-react-dropdown';
 
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
+import { app } from '../../../base'
 
 export default function EditProject() {
     const history = useHistory()
@@ -20,7 +21,7 @@ export default function EditProject() {
     const [detail, setDetail] = useState(project ? project.detail : '')
     const [content, setContent] = useState(project ? project.content : '')
     const [image, setImage] = useState(project ? project.image : '')
-    const [images, setImages] = useState(project ? project.images : '')
+    const [recentImages, setRecentImages] = useState(project ? project.images.length > 0 ? JSON.parse(project.images) : [] : [])
     const [gitlink, setGitlink] = useState(project ? project.gitlink : '')
     const [demolink, setDemolink] = useState(project ? project.demolink : '')
     const [featured, setFeatured] = useState(project ? String(project.featured) : false)
@@ -35,8 +36,39 @@ export default function EditProject() {
                 ProjectCategories.push(data.id)
             })
         }
+        let images = JSON.stringify(recentImages)
         dispatch(editProject(id, { title, detail, content, image, images, gitlink, demolink, featured, isdone, ProjectCategories }))
         history.push('/admin/projects')
+    }
+
+    const onImageChange = async (event) => {
+        const filename = event.target.files[0]
+        const storageRef = app.storage().ref()
+        const date = new Date().toDateString()
+        const fileRef = storageRef.child(`posts/${date}/${filename.name}`)
+        await fileRef.put(filename)
+        setImage(await fileRef.getDownloadURL())
+    }
+    const onDeleteImage = async (event, image) => {
+        event.preventDefault()
+        const storageRef = app.storage().refFromURL(image)
+        await storageRef.delete()
+        setImage('')
+    }
+    const onImagesChange = async (event) => {
+        const filename = event.target.files[0]
+        const storageRef = app.storage().ref()
+        const date = new Date().toDateString()
+        const fileRef = storageRef.child(`projects/${date}/${filename.name}`)
+        await fileRef.put(filename)
+        setRecentImages(recentImages.concat(await fileRef.getDownloadURL()))
+    }
+
+    const onDeleteImages = async (event, image) => {
+        event.preventDefault()
+        const storageRef = app.storage().refFromURL(image)
+        await storageRef.delete()
+        setRecentImages(recentImages.filter(d => d !== image))
     }
 
     useEffect(() => {
@@ -69,13 +101,31 @@ return (
                 />
             </div>
             <div className="form-group">
-                <label>image</label>
-                <input type="text" className="form-control" value={image} onChange={(event) => { setImage(event.target.value) }}/>
-            </div>
-            <div className="form-group">
-                <label>images</label>
-                <input type="text" className="form-control" value={images} onChange={(event) => { setImages(event.target.value) }}/>
-            </div>
+                    <label>image</label>
+                    <input className="form-control-file" type="file" onChange={onImageChange}/>
+                    { image &&
+                    <>
+                        <div className="img-wrap mr-2">
+                            <img src={image} width="80px" alt='error'/>
+                            <button className="delete-img" onClick={(event) => onDeleteImage(event, image)}>x</button>
+                        </div>
+                    </>
+                    }
+                </div>
+                <div className="form-group">
+                    <label>images</label>
+                    <input className="form-control-file" type="file" onChange={onImagesChange}/>
+                    { recentImages.length > 0 && 
+                        recentImages.map((image, index) => {
+                        return <React.Fragment key={index}>
+                            <div className="img-wrap mr-2">
+                                <img src={image} width="80px" alt='error'/>
+                                <button className="delete-img" onClick={(event) => onDeleteImages(event, image)}>x</button>
+                            </div>
+                        </React.Fragment>
+                        })
+                    }
+                </div>
             <div className="form-group">
                 <label>git link</label>
                 <input type="text" className="form-control" value={gitlink} onChange={(event) => { setGitlink(event.target.value) }}/>

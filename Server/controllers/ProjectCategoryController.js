@@ -1,18 +1,18 @@
-const { Post, PostCategory, User } = require('../../models/index')
+const { ProjectCategory } = require('../models/index')
 
-class PostCategoryController {
-    static async browsePostCategory(req, res, next) {
+class ProjectCategoryController {
+    static async browseProjectCategory(req, res, next) {
         try {
-            const datas = await PostCategory.findAll()
+            const datas = await ProjectCategory.findAll()
             res.status(200).json(datas)
         } catch (err) {
             next(err)
         }
     }
 
-    static async readPostCategory(req, res, next) {
+    static async readProjectCategory(req, res, next) {
         try {
-            const data = await PostCategory.findByPk(req.params.id)
+            const data = await ProjectCategory.findByPk(req.params.id)
             if(data === null) {
                 next({
                     name: '404 Not Found',
@@ -26,12 +26,12 @@ class PostCategoryController {
         }
     }
 
-    static async addPostCategory(req, res, next) {
+    static async addProjectCategory(req, res, next) {
         try {
             const dataInput = {
                 title: req.body.title
             }
-            const data = await PostCategory.create(dataInput)
+            const data = await ProjectCategory.create(dataInput)
             res.status(201).json(data)
         } catch (err) {
             if (err.name === "SequelizeValidationError") {
@@ -50,13 +50,13 @@ class PostCategoryController {
         }
     }
 
-    static async editPostCategory(req, res, next) {
+    static async editProjectCategory(req, res, next) {
         try {
             const dataInput = {
                 title: req.body.title
             }
             const { id } = req.params
-            const data = await PostCategory.findByPk(id)
+            const data = await ProjectCategory.findByPk(id)
             if(data == null) {
                 next({
                     name: '404 Not Found',
@@ -71,10 +71,10 @@ class PostCategoryController {
         }
     }
 
-    static async deletePostCategory(req, res, next) {
+    static async deleteProjectCategory(req, res, next) {
         try {
-            const category = await PostCategory.findByPk(req.params.id)
-            const data = await PostCategory.destroy({where: {id: req.params.id}})
+            const category = await ProjectCategory.findByPk(req.params.id)
+            const data = await ProjectCategory.destroy({where: {id: req.params.id}})
             if(data == 0) {
                 next({
                     name: '404 Not Found',
@@ -89,4 +89,4 @@ class PostCategoryController {
     }
 }
 
-module.exports = PostCategoryController
+module.exports = ProjectCategoryController

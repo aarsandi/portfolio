@@ -1,4 +1,4 @@
-const { Project, ProjectCategory, User } = require('../../models/index')
+const { Project, ProjectCategory, User } = require('../models/index')
 
 class ProjectController {
     static async browseProject(req, res, next) {

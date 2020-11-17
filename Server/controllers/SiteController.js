@@ -1,4 +1,4 @@
-const { Post, Project, ProjectCategory, PostCategory, User, Skill } = require('../../models/index')
+const { Post, Project, ProjectCategory, PostCategory, User, Skill } = require('../models/index')
 
 class SiteController {
     static async home(req, res, next) {
@@ -36,7 +36,7 @@ class SiteController {
         }
     }
 
-    static async browseProject(req, res, next) {
+    static async relatedProject(req, res, next) {
         try {
             const projects = await Project.findAll({
                 order: [['updatedAt', 'DESC']],
@@ -51,58 +51,16 @@ class SiteController {
         }
     }
 
-    static async readProject(req, res, next) {
+    static async relatedPost(req, res, next) {
         try {
-            const project = await Project.findByPk(req.params.id, {
-                include: [
-                    { model: ProjectCategory, as: 'ProjectCategories', through: { attributes: [] } },
-                    { model: User, attributes: ['name', 'email', 'avatar'] }
-                ]
-            })
-            if (project === null) {
-                next({
-                    name: '404 Not Found',
-                    error: 'Project not found'
-                })
-            } else {
-                res.status(200).json(project)
-            }
-        } catch (err) {
-            next(err)
-        }
-    }
-
-    static async browsePost(req, res, next) {
-        try {
-            const posts = await Post.findAll({
+            const projects = await Post.findAll({
                 order: [['updatedAt', 'DESC']],
                 include: [
                     { model: PostCategory, as: 'PostCategories', through: { attributes: [] } },
                     { model: User, attributes: ['name', 'email', 'avatar'] }
                 ]
             })
-            res.status(200).json(posts)
-        } catch (err) {
-            next(err)
-        }
-    }
-
-    static async readPost(req, res, next) {
-        try {
-            const post = await Post.findByPk(req.params.id, {
-                include: [
-                    { model: PostCategory, as: 'PostCategories', through: { attributes: [] } },
-                    { model: User, attributes: ['name', 'email', 'avatar'] }
-                ]
-            })
-            if(post === null) {
-                next({
-                    name: '404 Not Found',
-                    error: 'Post not found'
-                })
-            } else {
-                res.status(200).json(post)
-            }
+            res.status(200).json(projects)
         } catch (err) {
             next(err)
         }

@@ -31,9 +31,17 @@ export default function SinglePost() {
                 <h1 className="text-center">id: {post.id}</h1>
                 <h1 className="text-center">title: {post.title}</h1>
                 <h1 className="text-center">detail: {post.detail}</h1>
-                <h1 className="text-center">content: {post.content}</h1>
-                <h1 className="text-center">image: {post.image}</h1>
-                <h1 className="text-center">images: {post.images}</h1>
+                <h1 className="text-center">Content: </h1>
+                <div dangerouslySetInnerHTML={{__html: post.content}} />
+                <h1>image : </h1><img src={post.image}/>
+                <h1>images : {post.images ? JSON.parse(post.images).length + ' items' : '0 items'}</h1>
+                { post.images &&
+                    JSON.parse(post.images).map((image, index) => {
+                    return <React.Fragment key={index}>
+                        <img src={image} alt="img"/>
+                    </React.Fragment>
+                    })
+                }
                 <h1 className="text-center">featured: {post.featured ? 'true' : 'false'}</h1>
                 <h1 className="text-center">created at: {post.createdAt}</h1>
                 <h1 className="text-center">updated at: {post.updatedAt}</h1>

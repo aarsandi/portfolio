@@ -31,9 +31,18 @@ export default function SingleProject() {
                 <h1 className="text-center">id: {project.id}</h1>
                 <h1 className="text-center">title: {project.title}</h1>
                 <h1 className="text-center">detail: {project.detail}</h1>
-                <h1 className="text-center">article: {project.content}</h1>
-                <h1 className="text-center">image: {project.image}</h1>
-                <h1 className="text-center">images: {project.images}</h1>
+                <h1 className="text-center">Content: </h1>
+                <div dangerouslySetInnerHTML={{__html: project.content}} />
+                <h1 className="text-center">Image : </h1>
+                <img src={project.image}/>
+                <h1 className="text-center">images: {project.images ? JSON.parse(project.images).length + ' items' : '0 items'}</h1>
+                { project.images &&
+                    JSON.parse(project.images).map((image, index) => {
+                    return <React.Fragment key={index}>
+                        <img src={image} alt="img"/>
+                    </React.Fragment>
+                    })
+                }
                 <h1 className="text-center">git link: {project.gitlink}</h1>
                 <h1 className="text-center">demo link: {project.demolink}</h1>
                 <h1 className="text-center">featured: {project.featured ? 'true' : 'false'}</h1>
