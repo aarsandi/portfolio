@@ -22,5 +22,6 @@ router.use('/user', userRouter)
 router.get('/', SiteController.home)
 router.get('/relatedpost', SiteController.relatedPost)
 router.get('/relatedproject', SiteController.relatedProject)
+router.post('/sendEmail', SiteController.sendEmail)
 
 module.exports = router

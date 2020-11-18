@@ -5,22 +5,46 @@ import { Link, useParams } from 'react-router-dom'
 import Footer from '../../components/site/Footer'
 // import Navbar from '../../components/site/Navbar'
 import Hire from '../../components/site/Hire'
+import FeaturedProject from '../../components/site/FeaturedProject'
 
-import { fetchOneProject } from '../../store/actions/site'
+import { fetchOneProject, fetchHomeData } from '../../store/actions/site'
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import GridLoader from "react-spinners/GridLoader";
 
 export default function ProjectSingle() {
     const dispatch = useDispatch()
     const { id } = useParams()
     const project = useSelector((state) => state.siteReducer.project)
+    const projects = useSelector((state) => state.siteReducer.featuredprojects)
     const isLoading = useSelector((state) => state.siteReducer.isLoading)
     const isError = useSelector((state) => state.siteReducer.isError)
 
+    let settings = {
+        dots: true,
+        infinite: false,
+        slidesToShow: 2,
+        slidesToScroll: 2
+    };
+
     useEffect(() => {
         dispatch(fetchOneProject(id))
-    },[dispatch, id])
+        if (projects.length === 0) {
+            dispatch(fetchHomeData())
+        }
+    },[dispatch, id, projects])
 
     if (isLoading) {
-        return <h1>loading......</h1>
+        return (
+            <div className="d-flex align-items-center justify-content-center m-5">
+                <GridLoader
+                    size={30}
+                    color={"black"}
+                    loading={isLoading}
+                />
+            </div>
+        )
     } else if (isError) {
         return (
         <>
@@ -61,46 +85,42 @@ export default function ProjectSingle() {
                                 </div>
                                 <div className="col-md-4 col-md-push-1">
                                     <div className="project-detail">
+                                        <h2>{project.title}</h2>
                                         <p className="tag">
                                         { project.ProjectCategories && 
                                             project.ProjectCategories.map((data, index) => {
                                                 return <React.Fragment key={index}>
-                                                    <span>{data.title}</span>
+                                                    <span>{data.title} </span>
                                                 </React.Fragment>
                                         })}
                                         </p>
-                                        <h2>{project.detail}</h2>
                                         <div dangerouslySetInnerHTML={{__html: project.content}} />
-                                        <p><a href="https://github.com/aarsandi" className="btn btn-primary">View Live Preview</a></p>
+                                        { project.gitlink && <p><a href={project.gitlink} className="btn btn-primary">Repository</a></p> }
+                                        { project.demolink && <p><a href={project.demolink} className="btn btn-primary">View Live Preview</a></p> }
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div className="container-fluid mt-5">
                             <div className="row">
-                                <div className="col-md-12">
-                                    <h2>Related Works</h2>
+                                <div className="col-md-12 col-md-offset-2 text-center intro-heading">
+                                    <h2>Related Project</h2>
                                 </div>
-                                <div className="col-md-6 text-center">
-                                    <a href="work-single.html" className="project-img" style={{ backgroundImage: "url('/assets/project-demo.jpg')" }}>
-                                        <div className="overlay"></div>
-                                        <div className="desc">
-                                            <span className="icon"><i className="icon-heart-outline"></i></span>
-                                            <p className="tag"><span>Illustration</span>, <span>Logo</span></p>
-                                            <h3>Work 01</h3>
-                                            <span className="read-more">Read more <i className="icon-arrow-right3"></i></span>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div className="col-md-6 text-center">
-                                    <a href="work-single.html" className="project-img" style={{ backgroundImage: "url('/assets/project-demo.jpg')" }}>
-                                        <div className="overlay"></div>
-                                        <div className="desc">
-                                            <span className="icon"><i className="icon-heart-outline"></i></span>
-                                            <p className="tag"><span>Web Design</span>, <span>UI</span></p>
-                                            <h3>Work 02</h3>
-                                            <span className="read-more">Read more <i className="icon-arrow-right3"></i></span>
-                                        </div>
-                                    </a>
-                                </div>
+                            </div>
+                            <div className="d-flex align-items-center justify-content-center m-5">
+                                <GridLoader
+                                    size={30}
+                                    color={"black"}
+                                    loading={isLoading}
+                                />
+                            </div>
+                            <Slider {...settings}>
+                            { projects.map((project) => {
+                                return <FeaturedProject key={project.id} project={project}/>
+                            })}
+                            </Slider>
+                            <div className="text-center mt-5">
+                                <a href="https://github.com/aarsandi?tab=repositories" target="_blank" rel="noopener noreferrer" className="btn btn-primary">See more on Github</a>
                             </div>
                         </div>
                     </div>

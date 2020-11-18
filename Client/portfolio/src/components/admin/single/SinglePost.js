@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
+import timeSince from '../../../helpers/timeFormat'
 
 import { fetchOnePost } from '../../../store/actions/admin'
+import GridLoader from "react-spinners/GridLoader";
 
 export default function SinglePost() {
     const dispatch = useDispatch()
@@ -16,35 +18,73 @@ export default function SinglePost() {
     },[dispatch, id])
 
     if (isLoading) {
-        return <h1>loading......</h1>
+        return (
+            <div className="d-flex align-items-center justify-content-center m-5">
+                <GridLoader
+                    size={30}
+                    color={"black"}
+                    loading={isLoading}
+                />
+            </div>
+        )
     } else if (isError) {
         return (
         <>
             <h1>Well, this is awkward</h1>
-            <Link to="/admin" className="btn btn-primary">back to home or try refresh</Link>
+            <Link to="/admin" className="btn btn-primary">Home</Link>
         </>
         )
     } else {
         return (
             <>
-                <h1 className="text-center">Single Post</h1>
-                <h1 className="text-center">id: {post.id}</h1>
-                <h1 className="text-center">title: {post.title}</h1>
-                <h1 className="text-center">detail: {post.detail}</h1>
-                <h1 className="text-center">Content: </h1>
-                <div dangerouslySetInnerHTML={{__html: post.content}} />
-                <h1>image : </h1><img src={post.image}/>
-                <h1>images : {post.images ? JSON.parse(post.images).length + ' items' : '0 items'}</h1>
-                { post.images &&
-                    JSON.parse(post.images).map((image, index) => {
-                    return <React.Fragment key={index}>
-                        <img src={image} alt="img"/>
-                    </React.Fragment>
-                    })
-                }
-                <h1 className="text-center">featured: {post.featured ? 'true' : 'false'}</h1>
-                <h1 className="text-center">created at: {post.createdAt}</h1>
-                <h1 className="text-center">updated at: {post.updatedAt}</h1>
+            <div className="row mx-2 my-5">
+                <div className="col-9">
+                    <h1>Title :</h1>
+                    <h3>{post.title}</h3>
+                    <h1>Detail :</h1>
+                    <h3>{post.detail}</h3>
+                    <h1>Content :</h1>
+                    <div dangerouslySetInnerHTML={{__html: post.content}} />
+                </div>
+                <div className="col-3">
+                    <div className="row">
+                        <div className="col-12 card p-0 mb-2">
+                            <div className="card-header">
+                                Field
+                            </div>
+                            <div className="card-body">
+                                <h4>id: {post.id}</h4>
+                                <h4>featured: <span className="badge badge-primary">{post.featured ? 'true' : 'false'}</span></h4>
+                                <h4>created at: {timeSince(post.createdAt)}</h4>
+                                <h4>updated at: {timeSince(post.updatedAt)}</h4>
+                            </div>
+                        </div>
+                        <div className="col-12 card p-0 mb-2">
+                            <div className="card-header">
+                                Image
+                            </div>
+                            <div className="card-body">
+                                <h4>image : </h4><img src={post.image} alt="img" width="100%"/>
+                            </div>
+                        </div>
+                        <div className="col-12 card p-0">
+                            <div className="card-header">
+                                Images
+                            </div>
+                            <div className="card-body">
+                                <h4>images : <span className="badge badge-primary">{post.images ? JSON.parse(post.images).length + ' items' : '0 items'}</span></h4>
+                                { post.images &&
+                                    JSON.parse(post.images).map((image, index) => {
+                                    return <React.Fragment key={index}>
+                                        <img className="mb-1" src={image} alt="img" width="100%"/>
+                                    </React.Fragment>
+                                    })
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             </>
         )
     }

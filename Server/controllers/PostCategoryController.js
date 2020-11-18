@@ -3,7 +3,9 @@ const { PostCategory } = require('../models/index')
 class PostCategoryController {
     static async browsePostCategory(req, res, next) {
         try {
-            const datas = await PostCategory.findAll()
+            const datas = await PostCategory.findAll({
+                order: [['updatedAt', 'DESC']],
+            })
             res.status(200).json(datas)
         } catch (err) {
             next(err)

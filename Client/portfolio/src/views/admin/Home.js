@@ -4,7 +4,7 @@ import { Link, useHistory } from 'react-router-dom'
 
 import { fetchDataHome } from '../../store/actions/admin'
 import AdminNavbar from '../../components/admin/Navbar'
-
+import GridLoader from "react-spinners/GridLoader";
 
 export default function Home() {
     const history = useHistory();
@@ -24,33 +24,47 @@ export default function Home() {
         }
     },[history, dispatch, posts, projects])
 
-    return (
-        <>
-            <AdminNavbar/>
-            <div className="container">
-                <h1 className="text-center">Admin Dashboard</h1>
-                { isLoading &&
-                    <h1>Loading.....</h1>
-                }
-                { isError &&
-                <>
-                    <h1>{errorMessage}</h1>
-                    <Link className="nav-link" to="/">Visit site</Link>
-                </>
-                }
-                <div className="card m-3">
-                    <div className="card-body">
-                        You have {posts.length} Post
-                        <Link className="nav-link" to="/admin/posts">Posts list</Link>
-                    </div>
-                </div>
-                <div className="card m-3">
-                    <div className="card-body">
-                        You have {projects.length} Project
-                        <Link className="nav-link" to="/admin/projects">Projects list</Link>
-                    </div>
-                </div>
+    if (isLoading) {
+        return (
+            <>
+            <div className="d-flex align-items-center justify-content-center m-5">
+                <GridLoader
+                    size={30}
+                    color={"black"}
+                    loading={isLoading}
+                />
             </div>
-        </>
-    )
+            </>
+        )
+    } else if (isError) {
+        return (
+            <>
+                <div className="d-flex align-items-center justify-content-center m-5">
+                    <h1 className="text-center">Oooops. this is awkward</h1>
+                    <h1 className="text-center">{errorMessage}</h1>
+                </div>
+            </>
+        )
+    } else {
+        return (
+            <>
+                <AdminNavbar/>
+                <div className="container">
+                    <h1 className="text-center">Admin Dashboard</h1>
+                    <div className="card m-3">
+                        <div className="card-body">
+                            You have {posts.length} Post
+                            <Link className="nav-link" to="/admin/posts">Posts list</Link>
+                        </div>
+                    </div>
+                    <div className="card m-3">
+                        <div className="card-body">
+                            You have {projects.length} Project
+                            <Link className="nav-link" to="/admin/projects">Projects list</Link>
+                        </div>
+                    </div>
+                </div>
+            </>
+        )
+    }
 }

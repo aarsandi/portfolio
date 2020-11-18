@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import timeSince from '../../../helpers/timeFormat'
 
 import { fetchAllProjectCategory, deleteProjectCategory } from '../../../store/actions/admin'
+import GridLoader from "react-spinners/GridLoader";
 
 export default function ProjectCategoryTable() {
     const dispatch = useDispatch()
@@ -30,14 +31,32 @@ export default function ProjectCategoryTable() {
         }
     },[dispatch, projectCategories])
 
-    return (
-        <>
-            <h1 className="text-center">Browse Post Categories</h1>
-            { isError && <h1 className="text-center">{errorMessage}</h1> }
-            <Link to="/admin/catproject/add"> Add New</Link>
-            { isLoading && <h1 className="text-center">Loading.......</h1> }
-            { projectCategories.length > 0 &&
+    if (isLoading) {
+        return (
             <>
+            <div className="d-flex align-items-center justify-content-center m-5">
+                <GridLoader
+                    size={30}
+                    color={"black"}
+                    loading={isLoading}
+                />
+            </div>
+            </>
+        )
+    } else if (isError) {
+        return (
+            <>
+                <div className="d-flex align-items-center justify-content-center m-5">
+                    <h1 className="text-center">Oooops. this is awkward</h1>
+                    <h1 className="text-center">{errorMessage}</h1>
+                </div>
+            </>
+        )
+    } else {
+        return (
+            <>
+                <h1 className="text-center">Browse Post Categories</h1>
+                <Link to="/admin/catproject/add"> Add New</Link>
                 { isOnlyOne &&
                     <div className="alert alert-warning show" role="alert">
                         data just only one left, cant delete it
@@ -72,7 +91,6 @@ export default function ProjectCategoryTable() {
                     </tbody>
                 </table>
             </>
-            }
-        </>
-    )
+        )
+    }
 }

@@ -16,6 +16,9 @@ export function setLogout() {
     return { type: 'LOGOUT' }
 }
 
+// User
+
+
 // Skill
 export function setAllSkills(skills) {
     return { type: 'SETALLSKILLS', payload: skills }
@@ -84,6 +87,29 @@ export function fetchDataHome() {
                 }
             })
             dispatch(setAllDataAdmin(response.data))
+        } catch (err) {
+            if (err.response) {
+                dispatch(setError({ error: err.response.data.error }))
+            } else {
+                dispatch(setError({ error: 'unhandle error' }))
+            }
+        }
+    }
+}
+
+// User Actions
+export function editUser(id, data) {
+    return async function (dispatch) {
+        try {
+            await axios({
+                method: 'put',
+                url: '/user/edit/'+id,
+                headers: {
+                    token: localStorage.getItem('access_token')
+                },
+                data: data
+            })
+            dispatch(fetchDataHome())
         } catch (err) {
             if (err.response) {
                 dispatch(setError({ error: err.response.data.error }))

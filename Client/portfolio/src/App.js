@@ -18,6 +18,10 @@ function App() {
   return (
     <Router>
       <Switch>
+        {/* User */}
+        <Route exact path="/admin/user/read">
+          <AdminRead/>
+        </Route>
         {/* Skill */}
         <Route exact path="/admin/skills">
           <AdminBrowse/>

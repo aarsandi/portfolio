@@ -65,7 +65,7 @@ export default function Navbar() {
                                 </>
                             }
                             <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
-                                <Link className="dropdown-item" to="/admin">Account details</Link>
+                                <Link className="dropdown-item" to={"/admin/user/read"}>Account details</Link>
                                 <button className="btn dropdown-item" onClick={logout}> Logout</button>
                             </div>
                         </li>

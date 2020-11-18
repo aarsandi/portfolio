@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import timeSince from '../../../helpers/timeFormat'
 
 import { fetchAllPostCategory, deletePostCategory } from '../../../store/actions/admin'
+import GridLoader from "react-spinners/GridLoader";
 
 export default function PostCategoryTable() {
     const dispatch = useDispatch()
@@ -30,14 +31,31 @@ export default function PostCategoryTable() {
         }
     },[dispatch, postCategories])
 
-    return (
-        <>
-            <h1 className="text-center">Browse Blog Categories</h1>
-            { isError && <h1 className="text-center">{errorMessage}</h1> }
-            <Link to="/admin/catpost/add"> Add New</Link>
-            { isLoading && <h1 className="text-center">Loading.......</h1> }
-            { postCategories.length > 0 &&
+    if (isLoading) {
+        return (
             <>
+            <div className="d-flex align-items-center justify-content-center m-5">
+                <GridLoader
+                    size={30}
+                    color={"black"}
+                    loading={isLoading}
+                />
+            </div>
+            </>
+        )
+    } else if (isError) {
+        return (
+            <>
+                <div className="d-flex align-items-center justify-content-center m-5">
+                    <h1 className="text-center">Oooops. this is awkward</h1>
+                    <h1 className="text-center">{errorMessage}</h1>
+                </div>
+            </>
+        )
+    } else {
+        return (
+            <>
+                <h1 className="text-center">Browse Blog Categories</h1>
                 { isOnlyOne &&
                     <div className="alert alert-warning show" role="alert">
                         data just only one left, cant delete it
@@ -46,6 +64,7 @@ export default function PostCategoryTable() {
                         </button>
                     </div>
                 }
+                <Link to="/admin/catpost/add"> Add New</Link>
                 <table className="table">
                     <thead className="thead-dark">
                         <tr>
@@ -72,7 +91,6 @@ export default function PostCategoryTable() {
                     </tbody>
                 </table>
             </>
-            }
-        </>
-    )
+        )
+    }
 }

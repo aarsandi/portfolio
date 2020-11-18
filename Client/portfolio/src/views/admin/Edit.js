@@ -20,7 +20,7 @@ export default function Edit() {
     return (
         <>
             <AdminNavbar/>
-            <div className="container">
+            <div className="container-fluid">
                 { pathname.slice(7, 11) === "post" &&     
                     <EditPost/>
                 }

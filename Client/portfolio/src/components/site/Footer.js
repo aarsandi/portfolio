@@ -1,5 +1,9 @@
 import React from 'react'
-// import { Link } from 'react-router-dom'
+import {ReactComponent as NodeIcon} from '../../assets/node-dot-js.svg';
+import {ReactComponent as PostgresIcon} from '../../assets/postgresql.svg';
+import {ReactComponent as ReactIcon} from '../../assets/react.svg';
+import {ReactComponent as RouterIcon} from '../../assets/reactrouter.svg';
+import {ReactComponent as ReduxIcon} from '../../assets/redux.svg';
 
 export default function Footer() {
     return (
@@ -41,6 +45,24 @@ export default function Footer() {
                                     <a href="https://github.com/aarsandi" target="_blank" rel="noopener noreferrer"><i className="fa fa-github"></i></a>
                                     <a href="https://api.whatsapp.com/send?phone=6287812191920" target="_blank" rel="noopener noreferrer"><i className="fa fa-whatsapp"></i></a>
                                     <a href="https://www.linkedin.com/in/ahmad-arsandi-733ba711b/" target="_blank" rel="noopener noreferrer"><i className="fa fa-linkedin"></i></a>
+                                </p>
+                                <h2 className="mt-4">Built With :</h2>
+                                <p className="app-social-icons">
+                                    <a href="https://nodejs.org/en/" target="_blank" rel="noopener noreferrer">
+                                        <NodeIcon fill='white' stroke='white' width="50" height="40"/>
+                                    </a>
+                                    <a href="https://www.postgresql.org/" target="_blank" rel="noopener noreferrer">
+                                        <PostgresIcon fill='black' stroke='white' width="50" height="40"/>
+                                    </a>
+                                    <a href="https://reactjs.org/" target="_blank" rel="noopener noreferrer">
+                                        <ReactIcon fill='white' stroke='white' width="50" height="40"/>
+                                    </a>
+                                    <a href="https://reactrouter.com/" target="_blank" rel="noopener noreferrer">
+                                        <RouterIcon fill='white' stroke='white' width="50" height="40"/>
+                                    </a>
+                                    <a href="https://redux.js.org/" target="_blank" rel="noopener noreferrer">
+                                        <ReduxIcon fill='white' stroke='white' width="50" height="40"/>
+                                    </a>
                                 </p>
                             </div>
                         </div>

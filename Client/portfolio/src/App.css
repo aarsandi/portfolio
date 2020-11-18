@@ -709,6 +709,9 @@ h1, h2, h3, h4, h5, h6 {
     color: #fff;
     margin-right: 20px;
 }
+#footer p.app-social-icons .footer_icon {
+    margin-right: 20px;
+}
 
 #footer p .block {
     color: #b3b3b3;
@@ -760,8 +763,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 .img-wrap button.delete-img {
     position: absolute;
-    right: 0px;
-    top: -18px;
+    right: 0;
     font-size: 14px;
     padding: 0 5px;
 }
@@ -835,7 +837,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .project-detail h2 {
-    font-size: 40px;
+    font-size: 20px;
+    font-weight: bolder;
+    line-height: 1.5;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.747);
 }
 
 /* ============================================== End of Single Project Page =============================================== */

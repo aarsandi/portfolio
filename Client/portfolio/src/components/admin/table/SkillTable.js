@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import timeSince from '../../../helpers/timeFormat'
 
 import { fetchAllSkills } from '../../../store/actions/admin'
+import GridLoader from "react-spinners/GridLoader";
 
 export default function SkillTable() {
     const dispatch = useDispatch()
@@ -18,13 +19,31 @@ export default function SkillTable() {
         }
     },[dispatch, skills])
 
-    return (
-        <>
-            <h1 className="text-center">Browse Skills</h1>
-            { isError && <h1 className="text-center">{errorMessage}</h1> }
-            { isLoading && <h1 className="text-center">Loading.......</h1> }
-            { skills.length > 0 &&
+    if (isLoading) {
+        return (
             <>
+            <div className="d-flex align-items-center justify-content-center m-5">
+                <GridLoader
+                    size={30}
+                    color={"black"}
+                    loading={isLoading}
+                />
+            </div>
+            </>
+        )
+    } else if (isError) {
+        return (
+            <>
+                <div className="d-flex align-items-center justify-content-center m-5">
+                    <h1 className="text-center">Oooops. this is awkward</h1>
+                    <h1 className="text-center">{errorMessage}</h1>
+                </div>
+            </>
+        )
+    } else {
+        return (
+            <>
+                <h1 className="text-center">Browse Skills</h1>
                 <table className="table">
                     <thead className="thead-dark">
                         <tr>
@@ -52,7 +71,6 @@ export default function SkillTable() {
                     </tbody>
                 </table>
             </>
-            }
-        </>
-    )
+        )
+    }
 }

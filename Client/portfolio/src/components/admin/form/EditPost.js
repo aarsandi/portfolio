@@ -78,74 +78,100 @@ export default function EditPost() {
         <>
             <h1 className="text-center">Edit Post</h1>
             <form onSubmit={editPostSubmit} className="mb-5">
-                <div className="form-group">
-                    <label>Title</label>
-                    <input type="text" className="form-control" value={title} onChange={(event) => { setTitle(event.target.value) }}/>
-                </div>
-                <div className="form-group">
-                    <label>detail</label>
-                    <input type="text" className="form-control" value={detail} onChange={(event) => { setDetail(event.target.value) }}/>
-                </div>
-                <div className="form-group">
-                <label>Content</label>
-                    <CKEditor 
-                        editor={ClassicEditor}
-                        data={content}
-                        onChange={(event, editor) => {
-                            const data = editor.getData()
-                            setContent(data)
-                        }}
-                    />
-                </div>
-                <div className="form-group">
-                    <label>image</label>
-                    <input type="file" className="form-control-file" onChange={onImageChange}/>
-                    { image &&
-                    <>
-                        <div className="img-wrap mr-2">
-                            <img src={image} width="80px" alt='error'/>
-                            <button className="delete-img" onClick={(event) => onDeleteImage(event, image)}>x</button>
+                <div className="row mx-2 my-5">
+                    <div className="col-9">
+                        <div className="form-group">
+                            <label>Title</label>
+                            <input type="text" className="form-control" value={title} onChange={(event) => { setTitle(event.target.value) }}/>
                         </div>
-                    </>
-                    }
-                </div>
-                <div className="form-group">
-                    <label>images</label>
-                    <input type="file" className="form-control-file" onChange={onImagesChange}/>
-                    { recentImages.length > 0 && 
-                        recentImages.map((image, index) => {
-                        return <React.Fragment key={index}>
-                            <div className="img-wrap mr-2">
-                                <img src={image} width="80px" alt='error'/>
-                                <button className="delete-img" onClick={(event) => onDeleteImages(event, image)}>x</button>
+                        <div className="form-group">
+                            <label>detail</label>
+                            <textarea className="form-control" value={detail} onChange={(event) => { setDetail(event.target.value) }} />    
+                        </div>
+                        <div className="form-group">
+                        <label>Content</label>
+                            <CKEditor 
+                                editor={ClassicEditor}
+                                data={content}
+                                onChange={(event, editor) => {
+                                    const data = editor.getData()
+                                    setContent(data)
+                                }}
+                            />
+                        </div>
+                    </div>
+                    <div className="col-3">
+                        <div className="row">
+                            <div className="col-12 card p-0 mb-2">
+                                <div className="card-header">
+                                    Field 1
+                                </div>
+                                <div className="card-body">
+                                    <div className="form-group">
+                                        <label>image</label>
+                                        { !image &&
+                                            <input type="file" className="form-control-file" onChange={onImageChange}/>
+                                        }
+                                        { image &&
+                                        <>
+                                            <div className="img-wrap mr-2">
+                                                <img src={image} width="100%" alt='error'/>
+                                                <button className="delete-img" onClick={(event) => onDeleteImage(event, image)}>x</button>
+                                            </div>
+                                        </>
+                                        }
+                                    </div>
+                                    <div className="form-group">
+                                        <label>images</label>
+                                        <input type="file" className="form-control-file" onChange={onImagesChange}/>
+                                        { recentImages.length > 0 && 
+                                            recentImages.map((image, index) => {
+                                            return <React.Fragment key={index}>
+                                                <div className="img-wrap mr-2">
+                                                    <img src={image} width="47%" alt='error'/>
+                                                    <button className="delete-img" onClick={(event) => onDeleteImages(event, image)}>x</button>
+                                                </div>
+                                            </React.Fragment>
+                                            })
+                                        }
+                                    </div>
+                                </div>
                             </div>
-                        </React.Fragment>
-                        })
-                    }
+                            <div className="col-12 card p-0 mb-2">
+                                <div className="card-header">
+                                    Field 2
+                                </div>
+                                <div className="card-body">
+                                    <div className="form-group">
+                                        <label>Featured</label>
+                                        <select className="form-control" value={featured} onChange={(event) => { setFeatured(Number(event.target.value)) }}>
+                                            <option value="1">yes</option>
+                                            <option value="0">no</option>
+                                        </select>
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Post Categories</label>
+                                        <Multiselect 
+                                            options={postcategories}
+                                            selectedValues={post ? post.PostCategories : []}
+                                            onRemove={(selectedList) => {
+                                                setRecentPostCategories(selectedList)
+                                            }} 
+                                            onSelect={(selectedList) => {
+                                                setRecentPostCategories(selectedList)
+                                            }} 
+                                            displayValue="title"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div className="form-group">
-                    <label>Featured</label>
-                    <select className="form-control" value={featured} onChange={(event) => { setFeatured(Number(event.target.value)) }}>
-                        <option value="1">yes</option>
-                        <option value="0">no</option>
-                    </select>
+                <div className="d-flex align-items-center justify-content-center m-2">
+                    <button type="submit" className="btn btn-primary mx-1">Submit</button>
+                    <Link className="btn btn-primary mx-1" to="/admin/posts"> Back</Link>
                 </div>
-                <div className="form-group">
-                    <label>Post Categories</label>
-                    <Multiselect 
-                        options={postcategories}
-                        selectedValues={post ? post.PostCategories : []}
-                        onRemove={(selectedList) => {
-                            setRecentPostCategories(selectedList)
-                        }} 
-                        onSelect={(selectedList) => {
-                            setRecentPostCategories(selectedList)
-                        }} 
-                        displayValue="title"
-                    />
-                </div>
-                <button type="submit" className="btn btn-primary mx-1">Submit</button>
-                <Link className="btn btn-primary mx-1" to="/admin/posts"> Back</Link>
             </form>
         </>
     )

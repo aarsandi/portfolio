@@ -2,8 +2,10 @@ const initialState = {
     isLoading: false,
     isError: false,
     errorMessage: {},
+    featuredprojects: [],
     projects: [],
     project: {},
+    featuredpost: [],
     posts: [],
     post: {},
     skills: []
@@ -21,7 +23,7 @@ function site(state = initialState, action) {
 
     // Home
     if (action.type === 'SITEHOMEDATA') {
-        return { ...state, projects: action.payload.projects, posts: action.payload.posts, skills: action.payload.skills, isLoading: false, isError: false }
+        return { ...state, featuredprojects: action.payload.projects, featuredpost: action.payload.posts, skills: action.payload.skills, isLoading: false, isError: false }
     }
     
     // PROJECT

@@ -3,7 +3,9 @@ const { ProjectCategory } = require('../models/index')
 class ProjectCategoryController {
     static async browseProjectCategory(req, res, next) {
         try {
-            const datas = await ProjectCategory.findAll()
+            const datas = await ProjectCategory.findAll({
+                order: [['updatedAt', 'DESC']],
+            })
             res.status(200).json(datas)
         } catch (err) {
             next(err)
