@@ -1,0 +1,44 @@
+[
+    {
+		"id": 1,
+        "title": "Fullstack Developer",
+        "icon": "fa fa-code",
+        "order": 1,
+        "detail": "Coding for functionality javascript languages and many platforms."
+    },
+    {
+		"id": 2,
+        "title": "Frontend Developer",
+        "icon": "fa fa-desktop",
+        "order": 2,
+        "detail": "Working with CSS, HTML, and JavaScript, along with CSS preprocessors, to craft client-facing platforms."
+    },
+    {
+		"id": 3,
+        "title": "Backend Developer",
+        "icon": "fa fa-server",
+        "order": 3,
+        "detail": "Managing efficiency servers side applications and build Restfull API."
+    },
+    {
+		"id": 4,
+        "title": "Unit Testing",
+        "icon": "fa fa-warning",
+        "order": 4,
+        "detail": "Test error and bug for Application with any JavaScript Testing Framework."
+    },
+    {
+		"id": 5,
+        "title": "Database",
+        "icon": "fa fa-database",
+        "order": 5,
+        "detail": "Managing databases like MongoDB or PostgreSQL and integrate to Application."
+    },
+    {
+		"id": 6,
+        "title": "Latest Stack Tech",
+        "icon": "fa fa-wrench",
+        "order": 6,
+        "detail": "Able to code with latest stack technology like ReactJs, Vuejs, Nodejs."
+    }
+]
